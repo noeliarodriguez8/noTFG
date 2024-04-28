@@ -1,8 +1,10 @@
 package com.memeov1.memeov1.controllers;
 
-import com.memeov1.memeov1.services.CommunityService;
-import com.memeov1.memeov1.services.DMService;
+import com.memeov1.memeov1.services.PostService;
+import com.memeov1.memeov1.services.ConversationService;
 import com.memeov1.memeov1.services.UserService;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,13 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemeoController {
 
     public final UserService userService;
-    public final DMService dmService;
-    public final CommunityService communityService;
+    public final ConversationService conversationService;
+    public final PostService postService;
 
-    public MemeoController(UserService userService, DMService dmService, CommunityService communityService) {
+    public MemeoController(UserService userService, ConversationService conversationService,
+            PostService postService) {
         this.userService = userService;
-        this.dmService = dmService;
-        this.communityService = communityService;
+        this.conversationService = conversationService;
+        this.postService = postService;
     }
 
     // login y signin ??????
@@ -38,6 +41,13 @@ public class MemeoController {
     @GetMapping("/feed")
     public String getFeed(Integer userID) {
         return new String();
+    }
+
+    // test
+    @GetMapping("/saludo")
+    public ResponseEntity<String> getSaludo() {
+        String saludo = "Hola mundo";
+        return ResponseEntity.ok(saludo); // Devuelve 200 OK con la frase "Hola mundo"
     }
 
 }

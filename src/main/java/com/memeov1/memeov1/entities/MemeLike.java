@@ -7,28 +7,28 @@ import jakarta.persistence.Id;
 
 @Entity
 public class MemeLike {
-    public @Id Integer post_id;
-    public @Id Integer user_id;
+    public @Id Integer postID;
+    public @Id Integer userID;
 
-    MemeLike(Integer post_id, Integer user_id) {
-        this.post_id = post_id;
-        this.user_id = user_id;
+    MemeLike(Integer postID, Integer userID) {
+        this.postID = postID;
+        this.userID = userID;
     }
 
-    public Integer getPost_id() {
-        return post_id;
+    public Integer getpostID() {
+        return postID;
     }
 
-    public void setPost_id(Integer post_id) {
-        this.post_id = post_id;
+    public void setpostID(Integer postID) {
+        this.postID = postID;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getuserID() {
+        return userID;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setuserID(Integer userID) {
+        this.userID = userID;
     }
 
     @Override
@@ -38,13 +38,13 @@ public class MemeLike {
         if (o == null || getClass() != o.getClass())
             return false;
         MemeLike memeLike = (MemeLike) o;
-        return Objects.equals(post_id, memeLike.post_id) &&
-                Objects.equals(user_id, memeLike.user_id);
+        return Objects.equals(postID, memeLike.postID) &&
+                Objects.equals(userID, memeLike.userID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(post_id, user_id);
+        return Objects.hash(postID, userID);
     }
 
 }

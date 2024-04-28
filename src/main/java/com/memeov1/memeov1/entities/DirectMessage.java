@@ -5,55 +5,59 @@ import java.sql.Date;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class DirectMessage {
-    public @Id @GeneratedValue Integer message_id;
-    public Integer conversation_id;
-    public Integer sender_user_id;
-    public Integer receiver_user_id;
+    public @Id @GeneratedValue Integer messageID;
+    public Integer conversationID;
+    public Integer senderUserID;
+    public Integer receiverUserID;
     public Date sent_datetime;
     public String text_content;
 
-    DirectMessage(Integer conversation_id, Integer sender_user_id, Integer receiver_user_id, Date sent_datetime,
+    @ManyToOne
+    public Conversation conversation;
+
+    DirectMessage(Integer conversationID, Integer senderUserID, Integer receiverUserID, Date sent_datetime,
             String text_content) {
-        this.conversation_id = conversation_id;
-        this.sender_user_id = sender_user_id;
-        this.receiver_user_id = receiver_user_id;
+        this.conversationID = conversationID;
+        this.senderUserID = senderUserID;
+        this.receiverUserID = receiverUserID;
         this.sent_datetime = sent_datetime;
         this.text_content = text_content;
     }
 
-    public Integer getMessage_id() {
-        return message_id;
+    public Integer getmessageID() {
+        return messageID;
     }
 
-    public void setMessage_id(Integer message_id) {
-        this.message_id = message_id;
+    public void setmessageID(Integer messageID) {
+        this.messageID = messageID;
     }
 
-    public Integer getConversation_id() {
-        return conversation_id;
+    public Integer getconversationID() {
+        return conversationID;
     }
 
-    public void setConversation_id(Integer conversation_id) {
-        this.conversation_id = conversation_id;
+    public void setconversationID(Integer conversationID) {
+        this.conversationID = conversationID;
     }
 
-    public Integer getSender_user_id() {
-        return sender_user_id;
+    public Integer getsenderUserID() {
+        return senderUserID;
     }
 
-    public void setSender_user_id(Integer sender_user_id) {
-        this.sender_user_id = sender_user_id;
+    public void setsenderUserID(Integer senderUserID) {
+        this.senderUserID = senderUserID;
     }
 
-    public Integer getReceiver_user_id() {
-        return receiver_user_id;
+    public Integer getreceiverUserID() {
+        return receiverUserID;
     }
 
-    public void setReceiver_user_id(Integer receiver_user_id) {
-        this.receiver_user_id = receiver_user_id;
+    public void setreceiverUserID(Integer receiverUserID) {
+        this.receiverUserID = receiverUserID;
     }
 
     public Date getSent_datetime() {

@@ -3,10 +3,12 @@ package com.memeov1.memeov1.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 import java.sql.Blob;
 //import java.sql.Date;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class User {
@@ -19,6 +21,9 @@ public class User {
     public Date signup_date;
     public Date birth_date;
     public Blob avatar;
+
+    @OneToMany
+    public List<Post> posts;
 
     public User(String username, String name, String surname, String email, Date birth_date, Blob avatar) {
         this.userID = null;

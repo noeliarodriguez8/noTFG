@@ -6,32 +6,36 @@ import java.sql.Blob;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Post {
 
-    public @Id @GeneratedValue Integer post_id;
+    public @Id @GeneratedValue Integer postID;
     public String text_content;
     public Date created_datetime;
     public String media_type;
     public Blob media_file;
-    public Integer user_id;
+    public Integer userID;
 
-    Post(String text_content, Date created_datetime, String media_type, Blob media_file, Integer user_id) {
+    @ManyToOne
+    public User user;
+
+    Post(String text_content, Date created_datetime, String media_type, Blob media_file, Integer userID) {
         this.text_content = text_content;
         this.created_datetime = created_datetime;
         this.media_type = media_type;
         this.media_file = media_file;
         this.created_datetime = created_datetime;
-        this.user_id = user_id;
+        this.userID = userID;
     }
 
-    public Integer getPost_id() {
-        return post_id;
+    public Integer getpostID() {
+        return postID;
     }
 
-    public void setPost_id(Integer post_id) {
-        this.post_id = post_id;
+    public void setpostID(Integer postID) {
+        this.postID = postID;
     }
 
     public String getText_content() {
@@ -66,12 +70,12 @@ public class Post {
         this.media_file = media_file;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getuserID() {
+        return userID;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setuserID(Integer userID) {
+        this.userID = userID;
     }
 
 }

@@ -3,45 +3,53 @@ package com.memeov1.memeov1.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import java.sql.Date;
+import jakarta.persistence.OneToMany;
+
+import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Conversation {
 
-    public @Id @GeneratedValue Integer conversation_id;
-    public String starter_user_id;
-    public String receiver_user_id;
+    public @Id @GeneratedValue Integer conversationID;
+    public String starterUserID;
+    public String receiverUserID;
     public Date created_at;
 
-    Conversation(Integer conversation_id, String starter_user_id, String receiver_user_id, Date created_at) {
-        this.conversation_id = conversation_id;
-        this.starter_user_id = starter_user_id;
-        this.receiver_user_id = receiver_user_id;
+    @OneToMany
+    public List<DirectMessage> messages;
+
+    Conversation(Integer conversationID, String starterUserID, String receiverUserID, Date created_at,
+            List<DirectMessage> messages) {
+        this.conversationID = conversationID;
+        this.starterUserID = starterUserID;
+        this.receiverUserID = receiverUserID;
         this.created_at = created_at;
+        this.messages = messages;
     }
 
-    public Integer getConversation_id() {
-        return conversation_id;
+    public Integer getconversationID() {
+        return conversationID;
     }
 
-    public void setConversation_id(Integer conversation_id) {
-        this.conversation_id = conversation_id;
+    public void setconversationID(Integer conversationID) {
+        this.conversationID = conversationID;
     }
 
-    public String getStarter_user_id() {
-        return starter_user_id;
+    public String getstarterUserID() {
+        return starterUserID;
     }
 
-    public void setStarter_user_id(String starter_user_id) {
-        this.starter_user_id = starter_user_id;
+    public void setstarterUserID(String starterUserID) {
+        this.starterUserID = starterUserID;
     }
 
-    public String getReceiver_user_id() {
-        return receiver_user_id;
+    public String getreceiverUserID() {
+        return receiverUserID;
     }
 
-    public void setReceiver_user_id(String receiver_user_id) {
-        this.receiver_user_id = receiver_user_id;
+    public void setreceiverUserID(String receiverUserID) {
+        this.receiverUserID = receiverUserID;
     }
 
     public Date getCreated_at() {

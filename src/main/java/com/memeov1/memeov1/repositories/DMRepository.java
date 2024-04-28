@@ -2,17 +2,12 @@ package com.memeov1.memeov1.repositories;
 
 import java.util.List;
 
-import com.memeov1.memeov1.entities.Conversation;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import com.memeov1.memeov1.entities.DirectMessage;
 
-public interface DMRepository {
-    // listar conversaciones
-    List<Conversation> getConversations();
+public interface DMRepository extends JpaRepository<DirectMessage, Integer> {
 
     // listar mensajes de x conversación
-    List<DirectMessage> findDirectMessagesByConversationIDContainsIgnoreCase(Integer conversation_id);
-
-    // buscar conversación por user
-    List<Conversation> findConversationsByUsernameContainsIgnoreCase(String username);
-
+    List<DirectMessage> findDirectMessagesByConversationID(Integer conversationID);
 }

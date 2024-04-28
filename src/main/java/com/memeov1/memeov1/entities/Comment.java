@@ -8,26 +8,26 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Comment {
-    public @Id @GeneratedValue Integer comment_id;
+    public @Id @GeneratedValue Integer commentID;
     public String text_content;
     public Date created_datetime;
     public Integer created_by_user_id;
-    public Integer post_id;
+    public Integer postID;
 
-    Comment(String text_content, Date created_datetime, Integer created_by_user_id, Integer post_id) {
-        this.comment_id = null;
+    Comment(String text_content, Date created_datetime, Integer created_by_user_id, Integer postID) {
+        this.commentID = null;
         this.text_content = text_content;
         this.created_datetime = created_datetime;
         this.created_by_user_id = created_by_user_id;
-        this.post_id = post_id;
+        this.postID = postID;
     }
 
-    public Integer getComment_id() {
-        return comment_id;
+    public Integer getcommentID() {
+        return commentID;
     }
 
-    public void setComment_id(Integer comment_id) {
-        this.comment_id = comment_id;
+    public void setcommentID(Integer commentID) {
+        this.commentID = commentID;
     }
 
     public String getText_content() {
@@ -54,12 +54,12 @@ public class Comment {
         this.created_by_user_id = created_by_user_id;
     }
 
-    public Integer getPost_id() {
-        return post_id;
+    public Integer getpostID() {
+        return postID;
     }
 
-    public void setPost_id(Integer post_id) {
-        this.post_id = post_id;
+    public void setpostID(Integer postID) {
+        this.postID = postID;
     }
 
 }
