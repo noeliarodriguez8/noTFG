@@ -1,9 +1,16 @@
 package com.memeov1.memeov1.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.UniqueConstraint;
 
 import java.sql.Blob;
 //import java.sql.Date;
@@ -13,7 +20,9 @@ import java.util.List;
 @Entity
 public class User {
 
+    @Column(name = "userID")
     public @Id @GeneratedValue Integer userID;
+
     public String username;
     public String name;
     public String surname;
@@ -22,8 +31,30 @@ public class User {
     public Date birth_date;
     public Blob avatar;
 
-    @OneToMany
+    @OneToOne(targetEntity = Login.class)
+    public Login login;
+
+    @OneToMany(targetEntity = Comment.class)
+    public List<Comment> comments;
+
+    @OneToMany(targetEntity = Post.class)
     public List<Post> posts;
+
+    @OneToMany(targetEntity = MemeLike.class)
+    public List<MemeLike> memeLikes;
+
+    // --------------- IMPORTANTE!!!!!!!!!!! ---------------------------
+    @ManyToMany(targetEntity = Conversation.class)
+    @JoinTable(name = "user_conversation", joinColumns = @JoinColumn(name = "userID"), inverseJoinColumns = @JoinColumn(name = "conversationID"), uniqueConstraints = @UniqueConstraint(columnNames = {
+            "starterUserID", "receiverUserID" }))
+    @JoinColumns({
+            @JoinColumn(name = "starterUserID", referencedColumnName = "starterUserID"),
+            @JoinColumn(name = "receiverUserID", referencedColumnName = "receiverUserID")
+    })
+    public List<Conversation> conversations;
+
+    @OneToMany(targetEntity = DirectMessage.class)
+    public List<DirectMessage> directMessages;
 
     public User(String username, String name, String surname, String email, Date birth_date, Blob avatar) {
         this.userID = null;

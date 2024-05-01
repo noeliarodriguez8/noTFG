@@ -1,40 +1,50 @@
 package com.memeov1.memeov1.entities;
 
 import java.sql.Date;
+import java.util.List;
 import java.sql.Blob;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Post {
 
+    @Column(name = "postID")
     public @Id @GeneratedValue Integer postID;
+
     public String text_content;
     public Date created_datetime;
     public String media_type;
     public Blob media_file;
-    public Integer userID;
+    // public Integer userID;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "userID")
     public User user;
 
-    Post(String text_content, Date created_datetime, String media_type, Blob media_file, Integer userID) {
+    @OneToMany(targetEntity = MemeLike.class)
+    public List<MemeLike> memeLikes;
+
+    Post(String text_content, Date created_datetime, String media_type, Blob media_file) {
         this.text_content = text_content;
         this.created_datetime = created_datetime;
         this.media_type = media_type;
         this.media_file = media_file;
         this.created_datetime = created_datetime;
-        this.userID = userID;
+        // this.userID = userID;
     }
 
-    public Integer getpostID() {
+    public Integer getPostID() {
         return postID;
     }
 
-    public void setpostID(Integer postID) {
+    public void setPostID(Integer postID) {
         this.postID = postID;
     }
 
@@ -68,14 +78,6 @@ public class Post {
 
     public void setMedia_file(Blob media_file) {
         this.media_file = media_file;
-    }
-
-    public Integer getuserID() {
-        return userID;
-    }
-
-    public void setuserID(Integer userID) {
-        this.userID = userID;
     }
 
 }

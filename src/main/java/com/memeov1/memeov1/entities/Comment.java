@@ -5,20 +5,26 @@ import java.sql.Date;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Comment {
     public @Id @GeneratedValue Integer commentID;
     public String text_content;
     public Date created_datetime;
-    public Integer created_by_user_id;
+    // public Integer created_by_user_id;
     public Integer postID;
 
-    Comment(String text_content, Date created_datetime, Integer created_by_user_id, Integer postID) {
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "userID")
+    public User user;
+
+    Comment(String text_content, Date created_datetime, Integer postID) {
         this.commentID = null;
         this.text_content = text_content;
         this.created_datetime = created_datetime;
-        this.created_by_user_id = created_by_user_id;
+        // this.created_by_user_id = created_by_user_id;
         this.postID = postID;
     }
 
@@ -44,14 +50,6 @@ public class Comment {
 
     public void setCreated_datetime(Date created_datetime) {
         this.created_datetime = created_datetime;
-    }
-
-    public Integer getCreated_by_user_id() {
-        return created_by_user_id;
-    }
-
-    public void setCreated_by_user_id(Integer created_by_user_id) {
-        this.created_by_user_id = created_by_user_id;
     }
 
     public Integer getpostID() {

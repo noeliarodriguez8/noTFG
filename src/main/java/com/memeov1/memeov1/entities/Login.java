@@ -2,12 +2,16 @@ package com.memeov1.memeov1.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Login {
 
     public @Id String username;
     public String password;
+
+    @OneToOne(targetEntity = User.class)
+    public User user;
 
     Login(String username, String password) {
         this.username = username;

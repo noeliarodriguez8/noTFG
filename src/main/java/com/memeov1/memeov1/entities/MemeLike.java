@@ -2,33 +2,36 @@ package com.memeov1.memeov1.entities;
 
 import java.util.Objects;
 
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+//import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class MemeLike {
-    public @Id Integer postID;
-    public @Id Integer userID;
 
-    MemeLike(Integer postID, Integer userID) {
-        this.postID = postID;
-        this.userID = userID;
+    @EmbeddedId
+    public MemeLikePK memeLikePK;
+
+    @ManyToOne(targetEntity = Post.class)
+    @JoinColumn(name = "postID", insertable = false, updatable = false)
+    public Post post;
+    // public @Id Integer postID;
+
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "userID", insertable = false, updatable = false)
+    public User user;
+    // public @Id Integer userID;
+
+    public MemeLike() {
+
     }
 
-    public Integer getpostID() {
-        return postID;
-    }
-
-    public void setpostID(Integer postID) {
-        this.postID = postID;
-    }
-
-    public Integer getuserID() {
-        return userID;
-    }
-
-    public void setuserID(Integer userID) {
-        this.userID = userID;
+    public MemeLike(Post post, User user) {
+        this.post = post;
+        this.user = user;
+        this.memeLikePK = new MemeLikePK(post.getPostID(), user.getUserID());
     }
 
     @Override
@@ -38,13 +41,12 @@ public class MemeLike {
         if (o == null || getClass() != o.getClass())
             return false;
         MemeLike memeLike = (MemeLike) o;
-        return Objects.equals(postID, memeLike.postID) &&
-                Objects.equals(userID, memeLike.userID);
+        return Objects.equals(memeLikePK, memeLike.memeLikePK);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(postID, userID);
+        return Objects.hash(memeLikePK);
     }
 
 }

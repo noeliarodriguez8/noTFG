@@ -12,6 +12,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findByUsernameContainsIgnoreCase(String username);
 
     // listar seguidos/seguidores
+    @SuppressWarnings("null")
     List<User> findAll();
 
     // recuento seguidos/seguidores -> en código
