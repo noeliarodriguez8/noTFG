@@ -15,13 +15,17 @@ public class ConversationPK implements Serializable {
     @Column(name = "receiverUserID")
     public Integer receiverUserID;
 
+    @Column(name = "conversationID")
+    public Integer conversationID;
+
     public ConversationPK() {
 
     }
 
-    public ConversationPK(Integer starterUserID, Integer receiverUserID) {
+    public ConversationPK(Integer starterUserID, Integer receiverUserID, Integer conversationID) {
         this.starterUserID = starterUserID;
         this.receiverUserID = receiverUserID;
+        this.conversationID = conversationID;
     }
 
     public Integer getStarterUserID() {
@@ -40,6 +44,14 @@ public class ConversationPK implements Serializable {
         this.receiverUserID = receiverUserID;
     }
 
+    public Integer getConversationID() {
+        return conversationID;
+    }
+
+    public void setConversationID(Integer conversationID) {
+        this.conversationID = conversationID;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -48,12 +60,13 @@ public class ConversationPK implements Serializable {
             return false;
         ConversationPK that = (ConversationPK) o;
         return Objects.equals(starterUserID, that.starterUserID) &&
-                Objects.equals(receiverUserID, that.receiverUserID);
+                Objects.equals(receiverUserID, that.receiverUserID) &&
+                Objects.equals(conversationID, that.conversationID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(starterUserID, receiverUserID);
+        return Objects.hash(starterUserID, receiverUserID, conversationID);
     }
 
 }

@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -13,15 +14,19 @@ public class DirectMessage {
     public @Id @GeneratedValue Integer messageID;
 
     @ManyToOne(targetEntity = Conversation.class)
-    @JoinColumn(name = "conversationID")
+    @JoinColumns({
+            @JoinColumn(name = "conversationID", referencedColumnName = "conversationID"),
+            @JoinColumn(name = "starterUserID", referencedColumnName = "starterUserID"),
+            @JoinColumn(name = "receiverUserID", referencedColumnName = "receiverUserID")
+    })
     public Conversation conversation;
     // public Integer conversationID;
 
     @ManyToOne(targetEntity = User.class)
     public User senderUser;
     // public Integer senderUserID;
-
     // public Integer receiverUserID;
+
     public Date sent_datetime;
     public String text_content;
 

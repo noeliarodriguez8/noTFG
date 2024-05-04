@@ -1,6 +1,6 @@
 package com.memeov1.memeov1.entities;
 
-import jakarta.persistence.Column;
+//import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 //import jakarta.persistence.GeneratedValue;
@@ -18,14 +18,10 @@ public class Conversation {
     public ConversationPK conversationPK;
     // public Integer starterUserID;
     // public Integer receiverUserID;
+    // public Integer conversationID;
 
     @ManyToMany(mappedBy = "conversations")
     public List<User> users;
-
-    @Column(name = "conversationID")
-    public Integer conversationID;
-    // EN EL CREATE SUMAR 1 AL CONVERSATIONID CADA VEZ QUE CREEMOS UNA CONVERSACIÓN
-    // Y ASIGNÁRSELO A MANO
 
     public Date created_at;
 
@@ -33,19 +29,11 @@ public class Conversation {
     public List<DirectMessage> directMessages;
 
     Conversation(Date created_at, List<DirectMessage> directMessages) {
-        this.conversationID = null;
+        // this.conversationID = null;
         // this.starterUserID = starterUserID;
         // this.receiverUserID = receiverUserID;
         this.created_at = created_at;
         this.directMessages = directMessages;
-    }
-
-    public Integer getconversationID() {
-        return conversationID;
-    }
-
-    public void setconversationID(Integer conversationID) {
-        this.conversationID = conversationID;
     }
 
     public Date getCreated_at() {

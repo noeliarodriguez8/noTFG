@@ -19,7 +19,7 @@ public class Post {
     public @Id @GeneratedValue Integer postID;
 
     public String text_content;
-    public Date created_datetime;
+    public Date createdDatetime;
     public String media_type;
     public Blob media_file;
     // public Integer userID;
@@ -31,12 +31,12 @@ public class Post {
     @OneToMany(targetEntity = MemeLike.class)
     public List<MemeLike> memeLikes;
 
-    Post(String text_content, Date created_datetime, String media_type, Blob media_file) {
+    Post(String text_content, Date createdDatetime, String media_type, Blob media_file) {
         this.text_content = text_content;
-        this.created_datetime = created_datetime;
+        this.createdDatetime = createdDatetime;
         this.media_type = media_type;
         this.media_file = media_file;
-        this.created_datetime = created_datetime;
+        this.createdDatetime = createdDatetime;
         // this.userID = userID;
     }
 
@@ -56,12 +56,12 @@ public class Post {
         this.text_content = text_content;
     }
 
-    public Date getCreated_datetime() {
-        return created_datetime;
+    public Date getcreatedDatetime() {
+        return createdDatetime;
     }
 
-    public void setCreated_datetime(Date created_datetime) {
-        this.created_datetime = created_datetime;
+    public void setcreatedDatetime(Date createdDatetime) {
+        this.createdDatetime = createdDatetime;
     }
 
     public String getMedia_type() {

@@ -10,7 +10,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.UniqueConstraint;
 
 import java.sql.Blob;
 //import java.sql.Date;
@@ -43,22 +42,11 @@ public class User {
     @OneToMany(targetEntity = MemeLike.class)
     public List<MemeLike> memeLikes;
 
-    // --------------- IMPORTANTE!!!!!!!!!!! ---------------------------
-    // @ManyToMany(targetEntity = Conversation.class)
-    // @JoinTable(name = "user_conversation", joinColumns = @JoinColumn(name =
-    // "userID"), inverseJoinColumns = @JoinColumn(name = "conversationID"),
-    // uniqueConstraints = @UniqueConstraint(columnNames = {
-    // "starterUserID", "receiverUserID" }))
-    // @JoinColumns({
-    // @JoinColumn(name = "starterUserID", referencedColumnName = "starterUserID"),
-    // @JoinColumn(name = "receiverUserID", referencedColumnName = "receiverUserID")
-    // })
-    // public List<Conversation> user_conversations;
-
     @ManyToMany(targetEntity = Conversation.class)
-    @JoinTable(name = "user_conversation", joinColumns = @JoinColumn(name = "userID"), inverseJoinColumns = @JoinColumn(name = "conversationID"), uniqueConstraints = @UniqueConstraint(columnNames = {
-            "starterUserID", "receiverUserID" }))
-    public List<Conversation> user_conversations;
+    @JoinTable(name = "user_conversation", joinColumns = @JoinColumn(name = "userID"), inverseJoinColumns = {
+            @JoinColumn(name = "conversationID"), @JoinColumn(name = "starterUserID"),
+            @JoinColumn(name = "receiverUserID") })
+    public List<Conversation> conversations;
 
     @OneToMany(targetEntity = DirectMessage.class)
     public List<DirectMessage> directMessages;
