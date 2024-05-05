@@ -9,5 +9,5 @@ import com.memeov1.memeov1.entities.DirectMessage;
 public interface DMRepository extends JpaRepository<DirectMessage, Integer> {
 
     // listar mensajes de x conversación
-    List<DirectMessage> findDirectMessagesByConversationID(Integer conversationID);
+    List<DirectMessage> findDirectMessagesByConversationConversationPKConversationID(Integer conversationID);
 }
