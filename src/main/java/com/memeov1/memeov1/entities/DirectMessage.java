@@ -30,7 +30,11 @@ public class DirectMessage {
     public Date sent_datetime;
     public String text_content;
 
-    DirectMessage(Date sent_datetime, String text_content) {
+    public DirectMessage() {
+
+    }
+
+    public DirectMessage(Date sent_datetime, String text_content) {
         // this.conversationID = conversationID;
         // this.senderUserID = senderUserID;
         // this.receiverUserID = receiverUserID;

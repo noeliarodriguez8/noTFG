@@ -31,7 +31,14 @@ public class Post {
     @OneToMany(targetEntity = MemeLike.class)
     public List<MemeLike> memeLikes;
 
-    Post(String text_content, Date createdDatetime, String media_type, Blob media_file) {
+    @OneToMany(targetEntity = Comment.class)
+    public List<Comment> comments;
+
+    public Post() {
+
+    }
+
+    public Post(String text_content, Date createdDatetime, String media_type, Blob media_file) {
         this.text_content = text_content;
         this.createdDatetime = createdDatetime;
         this.media_type = media_type;

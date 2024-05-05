@@ -5,14 +5,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-//import jakarta.persistence.JoinColumns;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 import java.sql.Blob;
-//import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +28,12 @@ public class User {
     public Date signup_date;
     public Date birth_date;
     public Blob avatar;
+
+    // relación con Follower
+    @OneToMany(targetEntity = Follower.class)
+    public List<Follower> followers;
+    @OneToMany(targetEntity = Follower.class)
+    public List<Follower> following;
 
     @OneToOne(targetEntity = Login.class)
     public Login login;
@@ -51,6 +56,10 @@ public class User {
     @OneToMany(targetEntity = DirectMessage.class)
     public List<DirectMessage> directMessages;
 
+    public User() {
+
+    }
+
     public User(String username, String name, String surname, String email, Date birth_date, Blob avatar) {
         this.userID = null;
         this.username = username;
@@ -60,6 +69,8 @@ public class User {
         this.signup_date = new Date();
         this.birth_date = birth_date;
         this.avatar = avatar;
+        this.followers = new ArrayList<Follower>();
+        this.following = new ArrayList<Follower>();
     }
 
     public Integer getUserID() {
@@ -125,4 +136,21 @@ public class User {
     public void setAvatar(Blob avatar) {
         this.avatar = avatar;
     }
+
+    public List<Follower> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<Follower> followers) {
+        this.followers = followers;
+    }
+
+    public List<Follower> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(List<Follower> following) {
+        this.following = following;
+    }
+
 }

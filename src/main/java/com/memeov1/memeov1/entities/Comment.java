@@ -13,19 +13,25 @@ public class Comment {
     public @Id @GeneratedValue Integer commentID;
     public String text_content;
     public Date created_datetime;
-    // public Integer created_by_user_id;
-    public Integer postID;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "userID")
     public User user;
 
-    Comment(String text_content, Date created_datetime, Integer postID) {
+    @ManyToOne(targetEntity = Post.class)
+    @JoinColumn(name = "postID", insertable = false, updatable = false)
+    public Post post;
+
+    public Comment() {
+
+    }
+
+    public Comment(String text_content, Date created_datetime) {
         this.commentID = null;
         this.text_content = text_content;
         this.created_datetime = created_datetime;
         // this.created_by_user_id = created_by_user_id;
-        this.postID = postID;
+        // this.postID = postID;
     }
 
     public Integer getcommentID() {
@@ -50,14 +56,6 @@ public class Comment {
 
     public void setCreated_datetime(Date created_datetime) {
         this.created_datetime = created_datetime;
-    }
-
-    public Integer getpostID() {
-        return postID;
-    }
-
-    public void setpostID(Integer postID) {
-        this.postID = postID;
     }
 
 }

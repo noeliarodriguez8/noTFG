@@ -13,7 +13,11 @@ public class Login {
     @OneToOne(targetEntity = User.class)
     public User user;
 
-    Login(String username, String password) {
+    public Login() {
+
+    }
+
+    public Login(String username, String password) {
         this.username = username;
         this.password = password;
     }

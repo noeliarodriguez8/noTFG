@@ -9,7 +9,9 @@ import com.memeov1.memeov1.entities.MemeLikePK;
 
 public interface MemeLikeRepository extends JpaRepository<MemeLike, MemeLikePK> {
 
-    // listar likes
+    // listar likes (no se verá en la app)
     List<MemeLike> findMemeLikesByPostPostID(Integer postID);
+
+    // contar likes
 
 }

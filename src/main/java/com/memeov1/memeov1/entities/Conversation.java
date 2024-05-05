@@ -28,7 +28,11 @@ public class Conversation {
     @OneToMany(targetEntity = DirectMessage.class)
     public List<DirectMessage> directMessages;
 
-    Conversation(Date created_at, List<DirectMessage> directMessages) {
+    public Conversation() {
+
+    }
+
+    public Conversation(Date created_at, List<DirectMessage> directMessages) {
         // this.conversationID = null;
         // this.starterUserID = starterUserID;
         // this.receiverUserID = receiverUserID;

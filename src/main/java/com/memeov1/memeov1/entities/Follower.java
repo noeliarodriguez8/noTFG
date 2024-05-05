@@ -3,36 +3,51 @@ package com.memeov1.memeov1.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
 import java.sql.Date;
 import java.util.Objects;
 
 @Entity
 public class Follower {
 
-    public @Id @GeneratedValue Integer followingUserID;
-    public @Id @GeneratedValue Integer followedUserID;
+    public @Id @GeneratedValue Integer followerID;
+
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "fromUser")
+    public User fromUser;
+
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "toUser")
+    public User toUser;
+
     public Date started_following;
 
-    Follower(Integer followingUserID, Integer followedUserID, Date started_following) {
-        this.followingUserID = followingUserID;
-        this.followedUserID = followedUserID;
+    public Follower() {
+
+    }
+
+    public Follower(User fromUser, User toUser, Date started_following) {
+        this.fromUser = fromUser;
+        this.toUser = toUser;
         this.started_following = started_following;
     }
 
-    public Integer getfollowingUserID() {
-        return followingUserID;
+    public User getFromUser() {
+        return fromUser;
     }
 
-    public void setfollowingUserID(Integer followingUserID) {
-        this.followingUserID = followingUserID;
+    public void setFromUser(User fromUser) {
+        this.fromUser = fromUser;
     }
 
-    public Integer getfollowedUserID() {
-        return followedUserID;
+    public User getToUser() {
+        return toUser;
     }
 
-    public void setfollowedUserID(Integer followedUserID) {
-        this.followedUserID = followedUserID;
+    public void setToUser(User toUser) {
+        this.toUser = toUser;
     }
 
     public Date getStarted_following() {
@@ -50,13 +65,14 @@ public class Follower {
         if (o == null || getClass() != o.getClass())
             return false;
         Follower follower = (Follower) o;
-        return Objects.equals(followingUserID, follower.followingUserID) &&
-                Objects.equals(followedUserID, follower.followedUserID);
+        return Objects.equals(fromUser, follower.fromUser) &&
+                Objects.equals(toUser, follower.toUser) &&
+                Objects.equals(started_following, follower.started_following);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(followingUserID, followedUserID);
+        return Objects.hash(fromUser, toUser, started_following);
     }
 
 }
