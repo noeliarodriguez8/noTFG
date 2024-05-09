@@ -24,8 +24,6 @@ public class DirectMessage {
 
     @ManyToOne(targetEntity = User.class)
     public User senderUser;
-    // public Integer senderUserID;
-    // public Integer receiverUserID;
 
     public Date sent_datetime;
     public String text_content;
