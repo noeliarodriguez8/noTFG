@@ -30,8 +30,6 @@ public class Comment {
         this.commentID = null;
         this.text_content = text_content;
         this.created_datetime = created_datetime;
-        // this.created_by_user_id = created_by_user_id;
-        // this.postID = postID;
     }
 
     public Integer getcommentID() {
