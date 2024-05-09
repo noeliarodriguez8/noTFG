@@ -33,9 +33,6 @@ public class Conversation {
     }
 
     public Conversation(Date created_at, List<DirectMessage> directMessages) {
-        // this.conversationID = null;
-        // this.starterUserID = starterUserID;
-        // this.receiverUserID = receiverUserID;
         this.created_at = created_at;
         this.directMessages = directMessages;
     }
