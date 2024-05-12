@@ -1,7 +1,10 @@
 package com.memeov1.memeov1.entities;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.sql.Blob;
 
 import jakarta.persistence.Column;
@@ -11,6 +14,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 public class Post {
@@ -19,10 +24,13 @@ public class Post {
     public @Id @GeneratedValue Integer postID;
 
     public String text_content;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     public Date createdDatetime;
+
     public String media_type;
     public Blob media_file;
-    // public Integer userID;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "userID")
@@ -38,13 +46,10 @@ public class Post {
 
     }
 
-    public Post(String text_content, Date createdDatetime, String media_type, Blob media_file) {
+    public Post(String text_content, String media_type, Blob media_file) {
         this.text_content = text_content;
-        this.createdDatetime = createdDatetime;
         this.media_type = media_type;
         this.media_file = media_file;
-        this.createdDatetime = createdDatetime;
-        // this.userID = userID;
     }
 
     public Integer getPostID() {
