@@ -1,9 +1,12 @@
 package com.memeov1.memeov1.controllers;
 
 import com.memeov1.memeov1.services.PostService;
+import com.memeov1.memeov1.entities.Post;
 import com.memeov1.memeov1.entities.User;
 import com.memeov1.memeov1.services.ConversationService;
 import com.memeov1.memeov1.services.UserService;
+
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -79,6 +82,30 @@ public class MemeoController {
     @DeleteMapping("/deleteuser/{userID}")
     public String deleteUser(@PathVariable Integer userID) {
         return userService.delete(userID);
+    }
+
+    // ---------------------- POST ----------------------------
+    @PostMapping("/createpost")
+    public Post createPost(@RequestBody Post post) {
+        return postService.create(post);
+    }
+
+    @GetMapping("/getposts/{userID}")
+    public List<Post> getPosts(@PathVariable Integer userID) {
+        return postService.getPostsForCurrentUser(userID);
+    }
+
+    // leer un post no sé si lo necesitamos
+    // @GetMapping("/getpost/{postID}")
+    // public Post getPost(@PathVariable Integer postID) {
+    // return postService.read(postID);
+    // }
+
+    // no necesitamos actualizar post
+
+    @DeleteMapping("/deletepost/{postID}")
+    public String deletePost(@PathVariable Integer postID) {
+        return postService.delete(postID);
     }
 
 }
