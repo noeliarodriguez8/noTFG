@@ -1,13 +1,18 @@
 package com.memeov1.memeov1.controllers;
 
 import com.memeov1.memeov1.services.PostService;
+import com.memeov1.memeov1.entities.MemeLike;
+import com.memeov1.memeov1.entities.MemeLikePK;
 import com.memeov1.memeov1.entities.Post;
 import com.memeov1.memeov1.entities.User;
+import com.memeov1.memeov1.requests.MemeLikeRequest;
 import com.memeov1.memeov1.services.ConversationService;
+import com.memeov1.memeov1.services.MemeLikeService;
 import com.memeov1.memeov1.services.UserService;
 
 import java.util.List;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,12 +33,14 @@ public class MemeoController {
     public final UserService userService;
     public final ConversationService conversationService;
     public final PostService postService;
+    public final MemeLikeService memeLikeService;
 
     public MemeoController(UserService userService, ConversationService conversationService,
-            PostService postService) {
+            PostService postService, MemeLikeService memeLikeService) {
         this.userService = userService;
         this.conversationService = conversationService;
         this.postService = postService;
+        this.memeLikeService = memeLikeService;
     }
 
     // login y signin ??????
@@ -106,6 +113,27 @@ public class MemeoController {
     @DeleteMapping("/deletepost/{postID}")
     public String deletePost(@PathVariable Integer postID) {
         return postService.delete(postID);
+    }
+
+    // ---------------------- MEMELIKE ----------------------------
+    @PostMapping(value = "/creatememelike", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public MemeLike createMemeLike(@RequestBody MemeLikeRequest memeLikeRequest) {
+        // return memeLikeService.create(memeLike);
+        MemeLikePK memeLikePK = new MemeLikePK(memeLikeRequest.getPost().getPostID(),
+                memeLikeRequest.getUser().getUserID());
+        MemeLike memeLike = new MemeLike(memeLikeRequest.getPost(), memeLikeRequest.getUser());
+        memeLike.setMemeLikePK(memeLikePK); // Configurar la clave primaria compuesta
+        return memeLikeService.create(memeLike);
+    }
+
+    // no necesitamos un getmemelikes
+
+    // no necesitamos un updatememelike porque o se crea o se borra
+
+    @DeleteMapping("/deletememelike/{userID}/{postID}")
+    public String deleteMemeLike(@PathVariable Integer userID, @PathVariable Integer postID) {
+        MemeLikePK memeLikePK = new MemeLikePK(postID, userID);
+        return memeLikeService.delete(memeLikePK);
     }
 
 }

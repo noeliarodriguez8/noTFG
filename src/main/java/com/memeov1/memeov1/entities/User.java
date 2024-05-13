@@ -15,6 +15,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class User {
 
@@ -29,9 +33,13 @@ public class User {
     public Date birth_date;
     public Blob avatar;
 
-    // relación con Follower
+    // @JsonManagedReference
+    @JsonIgnoreProperties({ "fromUser", "toUser" })
     @OneToMany(targetEntity = Follower.class)
     public List<Follower> followers;
+
+    // @JsonBackReference
+    @JsonIgnoreProperties({ "fromUser", "toUser" })
     @OneToMany(targetEntity = Follower.class)
     public List<Follower> following;
 

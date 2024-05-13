@@ -9,15 +9,20 @@ import jakarta.persistence.ManyToOne;
 import java.sql.Date;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Follower {
 
     public @Id @GeneratedValue Integer followerID;
 
+    // @JsonBackReference
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "fromUser")
     public User fromUser;
 
+    // @JsonManagedReference
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "toUser")
     public User toUser;

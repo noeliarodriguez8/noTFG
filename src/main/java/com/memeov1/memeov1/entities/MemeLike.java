@@ -49,4 +49,28 @@ public class MemeLike {
         return Objects.hash(memeLikePK);
     }
 
+    public MemeLikePK getMemeLikePK() {
+        return memeLikePK;
+    }
+
+    public void setMemeLikePK(MemeLikePK memeLikePK) {
+        this.memeLikePK = memeLikePK;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }
