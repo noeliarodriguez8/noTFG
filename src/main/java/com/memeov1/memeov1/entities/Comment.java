@@ -4,13 +4,17 @@ import java.sql.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Comment {
-    public @Id @GeneratedValue Integer commentID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Integer commentID;
+
     public String text_content;
     public Date created_datetime;
 

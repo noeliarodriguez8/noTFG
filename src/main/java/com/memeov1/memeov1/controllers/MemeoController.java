@@ -1,12 +1,14 @@
 package com.memeov1.memeov1.controllers;
 
 import com.memeov1.memeov1.services.PostService;
+import com.memeov1.memeov1.entities.Login;
 import com.memeov1.memeov1.entities.MemeLike;
 import com.memeov1.memeov1.entities.MemeLikePK;
 import com.memeov1.memeov1.entities.Post;
 import com.memeov1.memeov1.entities.User;
 import com.memeov1.memeov1.requests.MemeLikeRequest;
 import com.memeov1.memeov1.services.ConversationService;
+import com.memeov1.memeov1.services.LoginService;
 import com.memeov1.memeov1.services.MemeLikeService;
 import com.memeov1.memeov1.services.UserService;
 
@@ -34,13 +36,15 @@ public class MemeoController {
     public final ConversationService conversationService;
     public final PostService postService;
     public final MemeLikeService memeLikeService;
+    public final LoginService loginService;
 
     public MemeoController(UserService userService, ConversationService conversationService,
-            PostService postService, MemeLikeService memeLikeService) {
+            PostService postService, MemeLikeService memeLikeService, LoginService loginService) {
         this.userService = userService;
         this.conversationService = conversationService;
         this.postService = postService;
         this.memeLikeService = memeLikeService;
+        this.loginService = loginService;
     }
 
     // login y signin ??????
@@ -68,7 +72,8 @@ public class MemeoController {
         return ResponseEntity.ok(saludo); // Devuelve 200 OK con la frase "Hola mundo"
     }
 
-    // ---------------------- USER ----------------------------
+    // ---------------------- USER
+    // ------------------------------------------------------------------------------
     @PostMapping("/createuser")
     public User createUser(@RequestBody User user) {
         return userService.create(user);
@@ -76,22 +81,26 @@ public class MemeoController {
 
     // no necesitamos un getusers
 
+    // incluye create login
     @GetMapping("/getuser/{userID}")
     public User getUser(@PathVariable Integer userID) {
         return userService.read(userID);
     }
 
+    // incluye update login
     @PutMapping("/updateuser/{userID}")
     public User updateUser(@PathVariable Integer userID, @RequestBody User user) {
         return userService.update(userID, user);
     }
 
+    // incluye delete login
     @DeleteMapping("/deleteuser/{userID}")
     public String deleteUser(@PathVariable Integer userID) {
         return userService.delete(userID);
     }
 
-    // ---------------------- POST ----------------------------
+    // ---------------------- POST
+    // --------------------------------------------------------------------------------
     @PostMapping("/createpost")
     public Post createPost(@RequestBody Post post) {
         return postService.create(post);
@@ -115,7 +124,8 @@ public class MemeoController {
         return postService.delete(postID);
     }
 
-    // ---------------------- MEMELIKE ----------------------------
+    // ---------------------- MEMELIKE
+    // ---------------------------------------------------------------------------------------------
     @PostMapping(value = "/creatememelike", consumes = MediaType.APPLICATION_JSON_VALUE)
     public MemeLike createMemeLike(@RequestBody MemeLikeRequest memeLikeRequest) {
         // return memeLikeService.create(memeLike);
@@ -134,6 +144,25 @@ public class MemeoController {
     public String deleteMemeLike(@PathVariable Integer userID, @PathVariable Integer postID) {
         MemeLikePK memeLikePK = new MemeLikePK(postID, userID);
         return memeLikeService.delete(memeLikePK);
+    }
+
+    // ---------------------- LOGIN
+    // ------------------------------------------------------------------------------
+    @PostMapping("/createlogin")
+    public Login createLogin(@RequestBody Login login) {
+        return loginService.create(login);
+    }
+
+    // no necesitamos un getlogins ni un getlogin
+
+    @PutMapping("/updatelogin/{loginID}")
+    public Login updateLogin(@PathVariable Integer loginID, @RequestBody Login login) {
+        return loginService.update(loginID, login);
+    }
+
+    @DeleteMapping("/deletelogin/{loginID}")
+    public String deleteLogin(@PathVariable Integer loginID) {
+        return loginService.delete(loginID);
     }
 
 }

@@ -4,6 +4,7 @@ import java.sql.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
@@ -11,7 +12,10 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class DirectMessage {
-    public @Id @GeneratedValue Integer messageID;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Integer messageID;
 
     @ManyToOne(targetEntity = Conversation.class)
     @JoinColumns({
