@@ -23,7 +23,8 @@ public class Comment {
     public User user;
 
     @ManyToOne(targetEntity = Post.class)
-    @JoinColumn(name = "postID", insertable = false, updatable = false)
+    @JoinColumn(name = "postID", updatable = false)
+    // quito insertable=false
     public Post post;
 
     public Comment() {

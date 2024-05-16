@@ -1,12 +1,14 @@
 package com.memeov1.memeov1.controllers;
 
 import com.memeov1.memeov1.services.PostService;
+import com.memeov1.memeov1.entities.Comment;
 import com.memeov1.memeov1.entities.Login;
 import com.memeov1.memeov1.entities.MemeLike;
 import com.memeov1.memeov1.entities.MemeLikePK;
 import com.memeov1.memeov1.entities.Post;
 import com.memeov1.memeov1.entities.User;
 import com.memeov1.memeov1.requests.MemeLikeRequest;
+import com.memeov1.memeov1.services.CommentService;
 import com.memeov1.memeov1.services.ConversationService;
 import com.memeov1.memeov1.services.LoginService;
 import com.memeov1.memeov1.services.MemeLikeService;
@@ -37,14 +39,17 @@ public class MemeoController {
     public final PostService postService;
     public final MemeLikeService memeLikeService;
     public final LoginService loginService;
+    public final CommentService commentService;
 
     public MemeoController(UserService userService, ConversationService conversationService,
-            PostService postService, MemeLikeService memeLikeService, LoginService loginService) {
+            PostService postService, MemeLikeService memeLikeService, LoginService loginService,
+            CommentService commentService) {
         this.userService = userService;
         this.conversationService = conversationService;
         this.postService = postService;
         this.memeLikeService = memeLikeService;
         this.loginService = loginService;
+        this.commentService = commentService;
     }
 
     // login y signin ??????
@@ -163,6 +168,27 @@ public class MemeoController {
     @DeleteMapping("/deletelogin/{loginID}")
     public String deleteLogin(@PathVariable Integer loginID) {
         return loginService.delete(loginID);
+    }
+
+    // ---------------------- COMMENT
+    // --------------------------------------------------------------------------------
+    @PostMapping("/createcomment")
+    public Comment createComment(@RequestBody Comment comment) {
+        return commentService.create(comment);
+    }
+
+    @GetMapping("/getcomments/{postID}")
+    public List<Comment> getComments(@PathVariable Integer postID) {
+        return commentService.getCommentsFromPost(postID);
+    }
+
+    // no necesitamos leer un comentario
+
+    // no necesitamos actualizar comentario
+
+    @DeleteMapping("/deletecomment/{commentID}")
+    public String deleteComment(@PathVariable Integer commentID) {
+        return commentService.delete(commentID);
     }
 
 }

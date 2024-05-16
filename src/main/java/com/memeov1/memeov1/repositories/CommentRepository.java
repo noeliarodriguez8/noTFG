@@ -9,7 +9,10 @@ import com.memeov1.memeov1.entities.Comment;
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
     // listar comentarios
-    List<Comment> findCommentsByPostPostID(Integer postID);
+    public List<Comment> findCommentsByPostPostID(Integer postID);
+
+    // encontrar comentario por ID
+    public Comment findByCommentID(Integer commentID);
 
     // recuento comentarios (en código)
 
