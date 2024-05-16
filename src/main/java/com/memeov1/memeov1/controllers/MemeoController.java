@@ -2,6 +2,7 @@ package com.memeov1.memeov1.controllers;
 
 import com.memeov1.memeov1.services.PostService;
 import com.memeov1.memeov1.entities.Comment;
+import com.memeov1.memeov1.entities.DirectMessage;
 import com.memeov1.memeov1.entities.Login;
 import com.memeov1.memeov1.entities.MemeLike;
 import com.memeov1.memeov1.entities.MemeLikePK;
@@ -10,6 +11,7 @@ import com.memeov1.memeov1.entities.User;
 import com.memeov1.memeov1.requests.MemeLikeRequest;
 import com.memeov1.memeov1.services.CommentService;
 import com.memeov1.memeov1.services.ConversationService;
+import com.memeov1.memeov1.services.DMService;
 import com.memeov1.memeov1.services.LoginService;
 import com.memeov1.memeov1.services.MemeLikeService;
 import com.memeov1.memeov1.services.UserService;
@@ -35,47 +37,42 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class MemeoController {
 
     public final UserService userService;
-    public final ConversationService conversationService;
     public final PostService postService;
     public final MemeLikeService memeLikeService;
     public final LoginService loginService;
     public final CommentService commentService;
+    public final ConversationService conversationService;
+    public final DMService dmService;
 
     public MemeoController(UserService userService, ConversationService conversationService,
             PostService postService, MemeLikeService memeLikeService, LoginService loginService,
-            CommentService commentService) {
+            CommentService commentService, DMService dmService) {
         this.userService = userService;
         this.conversationService = conversationService;
         this.postService = postService;
         this.memeLikeService = memeLikeService;
         this.loginService = loginService;
         this.commentService = commentService;
+        this.dmService = dmService;
     }
 
     // login y signin ??????
-    @PostMapping("/signin")
-    public String signin(@RequestParam String param) {
-        return new String();
-        // retornar vista
-    }
+    // @PostMapping("/signin")
+    // public String signin(@RequestParam String param) {
+    // return new String();
+    // // retornar vista
+    // }
 
-    @GetMapping("/login")
-    public String index(@RequestParam String param) {
-        return new String();
-    }
+    // @GetMapping("/login")
+    // public String index(@RequestParam String param) {
+    // return new String();
+    // }
 
     // listar post (inicio de usuario)
-    @GetMapping("/feed")
-    public String getFeed(Integer userID) {
-        return new String();
-    }
-
-    // test
-    @GetMapping("/saludo")
-    public ResponseEntity<String> getSaludo() {
-        String saludo = "Hola mundo";
-        return ResponseEntity.ok(saludo); // Devuelve 200 OK con la frase "Hola mundo"
-    }
+    // @GetMapping("/feed")
+    // public String getFeed(Integer userID) {
+    // return new String();
+    // }
 
     // ---------------------- USER
     // ------------------------------------------------------------------------------
@@ -132,12 +129,12 @@ public class MemeoController {
     // ---------------------- MEMELIKE
     // ---------------------------------------------------------------------------------------------
     @PostMapping(value = "/creatememelike", consumes = MediaType.APPLICATION_JSON_VALUE)
+    // lo de consumes es opcional
     public MemeLike createMemeLike(@RequestBody MemeLikeRequest memeLikeRequest) {
-        // return memeLikeService.create(memeLike);
         MemeLikePK memeLikePK = new MemeLikePK(memeLikeRequest.getPost().getPostID(),
                 memeLikeRequest.getUser().getUserID());
         MemeLike memeLike = new MemeLike(memeLikeRequest.getPost(), memeLikeRequest.getUser());
-        memeLike.setMemeLikePK(memeLikePK); // Configurar la clave primaria compuesta
+        memeLike.setMemeLikePK(memeLikePK);
         return memeLikeService.create(memeLike);
     }
 
@@ -189,6 +186,27 @@ public class MemeoController {
     @DeleteMapping("/deletecomment/{commentID}")
     public String deleteComment(@PathVariable Integer commentID) {
         return commentService.delete(commentID);
+    }
+
+    // ---------------------- DIRECT MESSAGE
+    // --------------------------------------------------------------------------------
+    @PostMapping("/createdm")
+    public DirectMessage createDirectMessage(@RequestBody DirectMessage directMessage) {
+        return dmService.create(directMessage);
+    }
+
+    @GetMapping("/getdms/{conversationID}")
+    public List<DirectMessage> getDMs(@PathVariable Integer conversationID) {
+        return dmService.getDMsFromConversation(conversationID);
+    }
+
+    // no necesitamos leer un dm
+
+    // no necesitamos actualizar dm
+
+    @DeleteMapping("/deletedm/{messageID}")
+    public String deleteDM(@PathVariable Integer messageID) {
+        return dmService.delete(messageID);
     }
 
 }
