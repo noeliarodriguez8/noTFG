@@ -37,9 +37,6 @@ public class DirectMessage {
     }
 
     public DirectMessage(Date sent_datetime, String text_content) {
-        // this.conversationID = conversationID;
-        // this.senderUserID = senderUserID;
-        // this.receiverUserID = receiverUserID;
         this.sent_datetime = sent_datetime;
         this.text_content = text_content;
     }
@@ -66,6 +63,30 @@ public class DirectMessage {
 
     public void setText_content(String text_content) {
         this.text_content = text_content;
+    }
+
+    public Integer getMessageID() {
+        return messageID;
+    }
+
+    public void setMessageID(Integer messageID) {
+        this.messageID = messageID;
+    }
+
+    public Conversation getConversation() {
+        return conversation;
+    }
+
+    public void setConversation(Conversation conversation) {
+        this.conversation = conversation;
+    }
+
+    public User getSenderUser() {
+        return senderUser;
+    }
+
+    public void setSenderUser(User senderUser) {
+        this.senderUser = senderUser;
     }
 
 }

@@ -2,6 +2,7 @@ package com.memeov1.memeov1.controllers;
 
 import com.memeov1.memeov1.services.PostService;
 import com.memeov1.memeov1.entities.Comment;
+import com.memeov1.memeov1.entities.Conversation;
 import com.memeov1.memeov1.entities.DirectMessage;
 import com.memeov1.memeov1.entities.Login;
 import com.memeov1.memeov1.entities.MemeLike;
@@ -19,7 +20,6 @@ import com.memeov1.memeov1.services.UserService;
 import java.util.List;
 
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PutMapping;
 
@@ -207,6 +206,32 @@ public class MemeoController {
     @DeleteMapping("/deletedm/{messageID}")
     public String deleteDM(@PathVariable Integer messageID) {
         return dmService.delete(messageID);
+    }
+
+    // ---------------------- CONVERSATION
+    // --------------------------------------------------------------------------------
+    @PostMapping("/createconversation")
+    public Conversation createConversation(@RequestBody Conversation conversation) {
+        // lógica en el service para aumentar el id manualmente
+        return conversationService.create(conversation);
+    }
+
+    @PutMapping("/updateconversation/{conversationID}")
+    public Conversation update(@PathVariable Integer conversationID, @RequestBody List<DirectMessage> dms) {
+        return conversationService.updateConversation(conversationID, dms);
+    }
+
+    @GetMapping("/getconversations/{username}")
+    public List<Conversation> getConversations(@PathVariable String username) {
+        return conversationService.findConversationsByReceiverUsername(username);
+    }
+
+    // no hace falta un get conversation porque al darle a una conversation concreta
+    // llamaremos al get dms by conversationID
+
+    @DeleteMapping("/deleteconversation/{conversationID}")
+    public String deleteConversation(@PathVariable Integer conversationID) {
+        return conversationService.delete(conversationID);
     }
 
 }

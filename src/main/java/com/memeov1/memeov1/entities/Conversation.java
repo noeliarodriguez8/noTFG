@@ -13,9 +13,6 @@ public class Conversation {
 
     @EmbeddedId
     public ConversationPK conversationPK;
-    // public Integer starterUserID;
-    // public Integer receiverUserID;
-    // public Integer conversationID;
 
     @ManyToMany(mappedBy = "conversations")
     public List<User> users;
@@ -29,6 +26,10 @@ public class Conversation {
 
     }
 
+    public Conversation(ConversationPK conversationPK) {
+        this.conversationPK = conversationPK;
+    }
+
     public Conversation(Date created_at, List<DirectMessage> directMessages) {
         this.created_at = created_at;
         this.directMessages = directMessages;
@@ -40,6 +41,30 @@ public class Conversation {
 
     public void setCreated_at(Date created_at) {
         this.created_at = created_at;
+    }
+
+    public ConversationPK getConversationPK() {
+        return conversationPK;
+    }
+
+    public void setConversationPK(ConversationPK conversationPK) {
+        this.conversationPK = conversationPK;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public List<DirectMessage> getDirectMessages() {
+        return directMessages;
+    }
+
+    public void setDirectMessages(List<DirectMessage> directMessages) {
+        this.directMessages = directMessages;
     }
 
 }

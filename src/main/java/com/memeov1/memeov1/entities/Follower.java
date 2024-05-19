@@ -63,6 +63,14 @@ public class Follower {
         this.started_following = started_following;
     }
 
+    public Integer getFollowerID() {
+        return followerID;
+    }
+
+    public void setFollowerID(Integer followerID) {
+        this.followerID = followerID;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)

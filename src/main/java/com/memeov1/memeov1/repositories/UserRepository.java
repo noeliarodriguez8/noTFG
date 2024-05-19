@@ -18,6 +18,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     // buscar users
     public List<User> findByUsernameContainsIgnoreCase(String username);
 
+    // buscar ids de user por username que coincida
+    public List<Integer> findUserIDsByUsernameContainsIgnoreCase(String username);
+
     // listar seguidores
     @Query("SELECT f.fromUser FROM Follower f WHERE f.toUser.userID = :userID")
     public List<User> findFollowersByUserID(@Param("userID") Integer userID);

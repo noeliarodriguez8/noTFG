@@ -10,11 +10,31 @@ import com.memeov1.memeov1.entities.Conversation;
 import com.memeov1.memeov1.entities.ConversationPK;
 
 public interface ConversationRepository extends JpaRepository<Conversation, ConversationPK> {
+
     // listar conversaciones del usuario registrado actualmente
     @Query("SELECT c FROM Conversation c WHERE c.conversationPK.starterUserID = :userID OR c.conversationPK.receiverUserID = :userID")
-    List<Conversation> findConversationsByUserID(@Param("userID") Integer userID);
+    public List<Conversation> findConversationsByUserID(@Param("userID") Integer userID);
 
     // buscar conversación por user
-    List<Conversation> findConversationsByConversationPKReceiverUserID(Integer receiverUserID);
+    // CAMBIAR
+    // necesitamos buscar por contains username
+    // creamos un método en user que nos sirva para encontrar ids por username
+    public List<Conversation> findConversationsByConversationPKReceiverUserIDIn(List<Integer> receiverUserIDs);
+
+    // para hacerlo solo en un método
+    // @Query("SELECT c FROM Conversation c JOIN c.users u WHERE u.username LIKE
+    // %:username% AND c.conversationPK.receiverUserID = u.userID")
+    // List<Conversation> findByReceiverUsernameContains(String username);
+
+    // borrar conversation por conversationpk
+    public String deleteByConversationPKConversationID(Integer conversationID);
+
+    // encontrar conversation por conversationID
+    // para el delete
+    public Conversation findConversationByConversationPKConversationID(Integer conversationID);
+
+    // encontrar último id de las conversations
+    @Query("SELECT MAX(c.conversationPK.conversationID) FROM Conversation c")
+    public Integer findLastConversationID();
 
 }

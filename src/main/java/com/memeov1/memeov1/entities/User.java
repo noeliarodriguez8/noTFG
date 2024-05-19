@@ -162,4 +162,52 @@ public class User {
         this.following = following;
     }
 
+    public Login getLogin() {
+        return login;
+    }
+
+    public void setLogin(Login login) {
+        this.login = login;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public List<MemeLike> getMemeLikes() {
+        return memeLikes;
+    }
+
+    public void setMemeLikes(List<MemeLike> memeLikes) {
+        this.memeLikes = memeLikes;
+    }
+
+    public List<Conversation> getConversations() {
+        return conversations;
+    }
+
+    public void setConversations(List<Conversation> conversations) {
+        this.conversations = conversations;
+    }
+
+    public List<DirectMessage> getDirectMessages() {
+        return directMessages;
+    }
+
+    public void setDirectMessages(List<DirectMessage> directMessages) {
+        this.directMessages = directMessages;
+    }
+
 }

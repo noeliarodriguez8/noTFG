@@ -61,4 +61,28 @@ public class Comment {
         this.created_datetime = created_datetime;
     }
 
+    public Integer getCommentID() {
+        return commentID;
+    }
+
+    public void setCommentID(Integer commentID) {
+        this.commentID = commentID;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
 }

@@ -71,14 +71,6 @@ public class Post {
         this.text_content = text_content;
     }
 
-    public Date getcreatedDatetime() {
-        return createdDatetime;
-    }
-
-    public void setcreatedDatetime(Date createdDatetime) {
-        this.createdDatetime = createdDatetime;
-    }
-
     public String getMedia_type() {
         return media_type;
     }
@@ -93,6 +85,38 @@ public class Post {
 
     public void setMedia_file(Blob media_file) {
         this.media_file = media_file;
+    }
+
+    public Date getCreatedDatetime() {
+        return createdDatetime;
+    }
+
+    public void setCreatedDatetime(Date createdDatetime) {
+        this.createdDatetime = createdDatetime;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<MemeLike> getMemeLikes() {
+        return memeLikes;
+    }
+
+    public void setMemeLikes(List<MemeLike> memeLikes) {
+        this.memeLikes = memeLikes;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
 }
