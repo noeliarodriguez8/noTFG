@@ -26,12 +26,12 @@ public class Conversation {
 
     }
 
-    public Conversation(ConversationPK conversationPK) {
+    // al usar el constructor solo con la conversationPK
+    // en la creación de dms al pasarle el json creaba una conversation nueva porque
+    // accedía a ese constructor (?)
+    // cuando ponías el conversationID de una que ya existía daba error
+    public Conversation(ConversationPK conversationPK, List<DirectMessage> directMessages) {
         this.conversationPK = conversationPK;
-    }
-
-    public Conversation(Date created_at, List<DirectMessage> directMessages) {
-        this.created_at = created_at;
         this.directMessages = directMessages;
     }
 

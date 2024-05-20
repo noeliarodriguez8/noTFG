@@ -37,14 +37,6 @@ public class Comment {
         this.created_datetime = created_datetime;
     }
 
-    public Integer getcommentID() {
-        return commentID;
-    }
-
-    public void setcommentID(Integer commentID) {
-        this.commentID = commentID;
-    }
-
     public String getText_content() {
         return text_content;
     }

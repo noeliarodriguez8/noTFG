@@ -24,7 +24,6 @@ public class DirectMessage {
             @JoinColumn(name = "receiverUserID", referencedColumnName = "receiverUserID")
     })
     public Conversation conversation;
-    // public Integer conversationID;
 
     @ManyToOne(targetEntity = User.class)
     public User senderUser;
@@ -39,14 +38,6 @@ public class DirectMessage {
     public DirectMessage(Date sent_datetime, String text_content) {
         this.sent_datetime = sent_datetime;
         this.text_content = text_content;
-    }
-
-    public Integer getmessageID() {
-        return messageID;
-    }
-
-    public void setmessageID(Integer messageID) {
-        this.messageID = messageID;
     }
 
     public Date getSent_datetime() {

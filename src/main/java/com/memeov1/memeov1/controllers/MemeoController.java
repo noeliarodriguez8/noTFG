@@ -216,6 +216,7 @@ public class MemeoController {
         return conversationService.create(conversation);
     }
 
+    // al crear un dm se tiene que llamar a este método justo después
     @PutMapping("/updateconversation/{conversationID}")
     public Conversation update(@PathVariable Integer conversationID, @RequestBody List<DirectMessage> dms) {
         return conversationService.updateConversation(conversationID, dms);

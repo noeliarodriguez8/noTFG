@@ -29,7 +29,7 @@ public class ConversationService {
         Integer newConversationID = lastConversationID != null ? lastConversationID + 1 : 1;
         ConversationPK conversationPK = new ConversationPK(conversation.getConversationPK().getStarterUserID(),
                 conversation.getConversationPK().getReceiverUserID(), newConversationID);
-        Conversation c = new Conversation(conversationPK);
+        Conversation c = new Conversation(conversationPK, null);
         return conversationRepository.saveAndFlush(c);
     }
 
