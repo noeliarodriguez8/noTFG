@@ -10,11 +10,15 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -30,7 +34,11 @@ public class User {
     public String name;
     public String surname;
     public String email;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     public Date signup_date;
+
     public Date birth_date;
     public Blob avatar;
 

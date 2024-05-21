@@ -4,9 +4,13 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 import java.util.Date;
 import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 public class Conversation {
@@ -17,6 +21,8 @@ public class Conversation {
     @ManyToMany(mappedBy = "conversations")
     public List<User> users;
 
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     public Date created_at;
 
     @OneToMany(targetEntity = DirectMessage.class)

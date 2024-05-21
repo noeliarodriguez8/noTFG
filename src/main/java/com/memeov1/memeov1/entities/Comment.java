@@ -1,6 +1,8 @@
 package com.memeov1.memeov1.entities;
 
-import java.sql.Date;
+import java.util.Date;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,6 +10,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 public class Comment {
@@ -16,6 +20,9 @@ public class Comment {
     public Integer commentID;
 
     public String text_content;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     public Date created_datetime;
 
     @ManyToOne(targetEntity = User.class)

@@ -1,6 +1,8 @@
 package com.memeov1.memeov1.entities;
 
-import java.sql.Date;
+import java.util.Date;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +11,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 public class DirectMessage {
@@ -28,7 +32,10 @@ public class DirectMessage {
     @ManyToOne(targetEntity = User.class)
     public User senderUser;
 
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     public Date sent_datetime;
+
     public String text_content;
 
     public DirectMessage() {

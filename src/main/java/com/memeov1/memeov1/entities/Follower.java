@@ -6,9 +6,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 public class Follower {
@@ -27,6 +31,8 @@ public class Follower {
     @JoinColumn(name = "toUser")
     public User toUser;
 
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     public Date started_following;
 
     public Follower() {
