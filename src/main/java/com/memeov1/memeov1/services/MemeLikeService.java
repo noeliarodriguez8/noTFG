@@ -16,6 +16,7 @@ public class MemeLikeService {
         this.memeLikeRepository = memeLikeRepository;
     }
 
+    @Transactional
     public MemeLike create(MemeLike memeLike) {
         return memeLikeRepository.saveAndFlush(memeLike);
     }

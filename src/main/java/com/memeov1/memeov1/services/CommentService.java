@@ -3,6 +3,7 @@ package com.memeov1.memeov1.services;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.memeov1.memeov1.entities.Comment;
 import com.memeov1.memeov1.repositories.CommentRepository;
@@ -16,6 +17,7 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
+    @Transactional
     public Comment create(Comment comment) {
         return commentRepository.saveAndFlush(comment);
     }
@@ -24,6 +26,7 @@ public class CommentService {
         return commentRepository.findCommentsByPostPostID(postID);
     }
 
+    @Transactional
     public String delete(Integer commentID) {
         Comment comment = commentRepository.findByCommentID(commentID);
         commentRepository.deleteById(commentID);

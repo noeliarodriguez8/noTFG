@@ -23,6 +23,7 @@ public class ConversationService {
         this.userRepository = userRepository;
     }
 
+    @Transactional
     public Conversation create(Conversation conversation) {
         Integer lastConversationID = conversationRepository.findLastConversationID();
         // si lo encuentra le suma 1, si no lo encuentra le asigna 1
@@ -42,6 +43,7 @@ public class ConversationService {
         return List.of(); // devuelve una lista vacía si no se encuentran usuarios
     }
 
+    @Transactional
     public Conversation updateConversation(Integer conversationID, List<DirectMessage> dms) {
         Conversation conversation = conversationRepository
                 .findConversationByConversationPKConversationID(conversationID);

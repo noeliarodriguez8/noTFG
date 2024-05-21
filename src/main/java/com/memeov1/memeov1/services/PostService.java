@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.memeov1.memeov1.entities.Follower;
 import com.memeov1.memeov1.entities.Post;
@@ -22,6 +23,7 @@ public class PostService {
         this.userRepository = userRepository;
     }
 
+    @Transactional
     public Post create(Post post) {
         return postRepository.saveAndFlush(post);
     }
@@ -40,6 +42,7 @@ public class PostService {
     // return postRepository.findByPostID(postID);
     // }
 
+    @Transactional
     public String delete(Integer postID) {
         Post post = postRepository.findByPostID(postID);
         postRepository.deleteById(postID);

@@ -1,6 +1,7 @@
 package com.memeov1.memeov1.services;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.memeov1.memeov1.entities.Login;
 import com.memeov1.memeov1.entities.User;
@@ -18,6 +19,7 @@ public class UserService {
         this.loginRepository = loginRepository;
     }
 
+    @Transactional
     public User create(User user) {
         return userRepository.saveAndFlush(user);
     }
@@ -26,6 +28,7 @@ public class UserService {
         return userRepository.findByUserID(userID);
     }
 
+    @Transactional
     public User update(Integer userID, User updatedUser) {
         User existingUser = userRepository.findByUserID(userID);
         if (existingUser != null) {
@@ -41,6 +44,7 @@ public class UserService {
         }
     }
 
+    @Transactional
     public String delete(Integer userID) {
         User user = userRepository.findByUserID(userID);
         userRepository.deleteById(userID);

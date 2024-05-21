@@ -3,6 +3,7 @@ package com.memeov1.memeov1.services;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.memeov1.memeov1.entities.DirectMessage;
 import com.memeov1.memeov1.repositories.DMRepository;
@@ -16,6 +17,7 @@ public class DMService {
         this.dmRepository = dmRepository;
     }
 
+    @Transactional
     public DirectMessage create(DirectMessage dm) {
         return dmRepository.saveAndFlush(dm);
     }
@@ -24,6 +26,7 @@ public class DMService {
         return dmRepository.findDirectMessagesByConversationConversationPKConversationID(conversationID);
     }
 
+    @Transactional
     public String delete(Integer dmID) {
         DirectMessage dm = dmRepository.findByMessageID(dmID);
         dmRepository.deleteById(dmID);
