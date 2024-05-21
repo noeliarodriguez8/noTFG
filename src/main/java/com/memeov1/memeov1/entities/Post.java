@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Blob;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,15 +16,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
+@Table(name = "post")
 public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "postID")
+    @Column(name = "postID", nullable = false)
     public Integer postID;
 
     public String text_content;
@@ -35,14 +38,14 @@ public class Post {
     public String media_type;
     public Blob media_file;
 
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "userID")
+    @ManyToOne(targetEntity = User.class, optional = false)
+    @JoinColumn(name = "userID", nullable = false)
     public User user;
 
-    @OneToMany(targetEntity = MemeLike.class)
+    @OneToMany(targetEntity = MemeLike.class, mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<MemeLike> memeLikes;
 
-    @OneToMany(targetEntity = Comment.class)
+    @OneToMany(targetEntity = Comment.class, mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<Comment> comments;
 
     public Post() {

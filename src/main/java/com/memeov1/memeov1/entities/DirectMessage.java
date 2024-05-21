@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,25 +12,29 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
+@Table(name = "direct_message")
 public class DirectMessage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "messageID", nullable = false)
     public Integer messageID;
 
-    @ManyToOne(targetEntity = Conversation.class)
+    @ManyToOne(targetEntity = Conversation.class, optional = false)
     @JoinColumns({
-            @JoinColumn(name = "conversationID", referencedColumnName = "conversationID"),
+            @JoinColumn(name = "conversationID", referencedColumnName = "conversationID", nullable = false),
             @JoinColumn(name = "starterUserID", referencedColumnName = "starterUserID"),
             @JoinColumn(name = "receiverUserID", referencedColumnName = "receiverUserID")
     })
     public Conversation conversation;
 
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne(targetEntity = User.class, optional = false)
+    @JoinColumn(name = "userID", nullable = false)
     public User senderUser;
 
     @CreationTimestamp

@@ -1,5 +1,6 @@
 package com.memeov1.memeov1.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
@@ -23,11 +25,12 @@ import org.hibernate.annotations.CreationTimestamp;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "userID")
+    @Column(name = "userID", nullable = false)
     public Integer userID;
 
     public String username;
@@ -44,33 +47,34 @@ public class User {
 
     // @JsonManagedReference
     @JsonIgnoreProperties({ "fromUser", "toUser" })
-    @OneToMany(targetEntity = Follower.class)
+    @OneToMany(targetEntity = Follower.class, cascade = CascadeType.ALL, mappedBy = "toUser", orphanRemoval = true)
     public List<Follower> followers;
 
     // @JsonBackReference
     @JsonIgnoreProperties({ "fromUser", "toUser" })
-    @OneToMany(targetEntity = Follower.class)
+    @OneToMany(targetEntity = Follower.class, cascade = CascadeType.ALL, mappedBy = "fromUser", orphanRemoval = true)
     public List<Follower> following;
 
-    @OneToOne(targetEntity = Login.class)
+    @OneToOne(targetEntity = Login.class, cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     public Login login;
 
-    @OneToMany(targetEntity = Comment.class)
+    @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     public List<Comment> comments;
 
-    @OneToMany(targetEntity = Post.class)
+    @OneToMany(targetEntity = Post.class, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    // hay que poner el mappedby para que pueda borrar los posts al borrar el user
     public List<Post> posts;
 
-    @OneToMany(targetEntity = MemeLike.class)
+    @OneToMany(targetEntity = MemeLike.class, cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     public List<MemeLike> memeLikes;
 
-    @ManyToMany(targetEntity = Conversation.class)
+    @ManyToMany(targetEntity = Conversation.class, cascade = CascadeType.ALL)
     @JoinTable(name = "user_conversation", joinColumns = @JoinColumn(name = "userID"), inverseJoinColumns = {
             @JoinColumn(name = "conversationID"), @JoinColumn(name = "starterUserID"),
             @JoinColumn(name = "receiverUserID") })
     public List<Conversation> conversations;
 
-    @OneToMany(targetEntity = DirectMessage.class)
+    @OneToMany(targetEntity = DirectMessage.class, cascade = CascadeType.ALL)
     public List<DirectMessage> directMessages;
 
     public User() {

@@ -7,20 +7,22 @@ import jakarta.persistence.Entity;
 //import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "meme_like")
 public class MemeLike {
 
     @EmbeddedId
     public MemeLikePK memeLikePK;
 
-    @ManyToOne(targetEntity = Post.class)
-    @JoinColumn(name = "postID", insertable = false, updatable = false)
+    @ManyToOne(targetEntity = Post.class, optional = false)
+    @JoinColumn(name = "postID", insertable = false, updatable = false, nullable = false)
     public Post post;
     // public @Id Integer postID;
 
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "userID", insertable = false, updatable = false)
+    @ManyToOne(targetEntity = User.class, optional = false)
+    @JoinColumn(name = "userID", insertable = false, updatable = false, nullable = false)
     public User user;
     // public @Id Integer userID;
 

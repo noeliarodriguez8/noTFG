@@ -1,11 +1,13 @@
 package com.memeov1.memeov1.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
@@ -15,20 +17,22 @@ import java.util.Objects;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
+@Table(name = "follower")
 public class Follower {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "followerID", nullable = false)
     public Integer followerID;
 
     // @JsonBackReference
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "fromUser")
+    @ManyToOne(targetEntity = User.class, optional = false)
+    @JoinColumn(name = "fromUser", nullable = false)
     public User fromUser;
 
     // @JsonManagedReference
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "toUser")
+    @ManyToOne(targetEntity = User.class, optional = false)
+    @JoinColumn(name = "toUser", nullable = false)
     public User toUser;
 
     @CreationTimestamp
