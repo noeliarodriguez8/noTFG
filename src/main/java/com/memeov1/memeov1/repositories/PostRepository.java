@@ -22,6 +22,7 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 
     // recuento likes (en código)
 
+    // encontrar post por id
     public Post findByPostID(Integer postID);
 
 }

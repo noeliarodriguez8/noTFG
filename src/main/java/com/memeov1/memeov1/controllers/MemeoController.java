@@ -4,6 +4,7 @@ import com.memeov1.memeov1.services.PostService;
 import com.memeov1.memeov1.entities.Comment;
 import com.memeov1.memeov1.entities.Conversation;
 import com.memeov1.memeov1.entities.DirectMessage;
+import com.memeov1.memeov1.entities.Follower;
 import com.memeov1.memeov1.entities.Login;
 import com.memeov1.memeov1.entities.MemeLike;
 import com.memeov1.memeov1.entities.MemeLikePK;
@@ -13,6 +14,7 @@ import com.memeov1.memeov1.requests.MemeLikeRequest;
 import com.memeov1.memeov1.services.CommentService;
 import com.memeov1.memeov1.services.ConversationService;
 import com.memeov1.memeov1.services.DMService;
+import com.memeov1.memeov1.services.FollowerService;
 import com.memeov1.memeov1.services.LoginService;
 import com.memeov1.memeov1.services.MemeLikeService;
 import com.memeov1.memeov1.services.UserService;
@@ -42,10 +44,11 @@ public class MemeoController {
     public final CommentService commentService;
     public final ConversationService conversationService;
     public final DMService dmService;
+    public final FollowerService followerService;
 
     public MemeoController(UserService userService, ConversationService conversationService,
             PostService postService, MemeLikeService memeLikeService, LoginService loginService,
-            CommentService commentService, DMService dmService) {
+            CommentService commentService, DMService dmService, FollowerService followerService) {
         this.userService = userService;
         this.conversationService = conversationService;
         this.postService = postService;
@@ -53,6 +56,7 @@ public class MemeoController {
         this.loginService = loginService;
         this.commentService = commentService;
         this.dmService = dmService;
+        this.followerService = followerService;
     }
 
     // login y signin ??????
@@ -98,6 +102,22 @@ public class MemeoController {
     @DeleteMapping("/deleteuser/{userID}")
     public String deleteUser(@PathVariable Integer userID) {
         return userService.delete(userID);
+    }
+
+    // ---------------------- FOLLOWER
+    // ------------------------------------------------------------------------------
+    @PostMapping("/createfollower")
+    public Follower createFollower(@RequestBody Follower follower) {
+        return followerService.create(follower);
+    }
+
+    // getfollowers y getfollowing no hacen falta porque se sacan de las propiedades
+    // followers y following de User directamente
+
+    @DeleteMapping("/deletefollower/{fromUserID}/{toUserID}")
+    public String deleteFollower(@PathVariable Integer fromUserID, @PathVariable Integer toUserID) {
+
+        return followerService.delete(fromUserID, toUserID);
     }
 
     // ---------------------- POST

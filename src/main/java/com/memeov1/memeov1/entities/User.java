@@ -74,7 +74,7 @@ public class User {
             @JoinColumn(name = "receiverUserID") })
     public List<Conversation> conversations;
 
-    @OneToMany(targetEntity = DirectMessage.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = DirectMessage.class, cascade = CascadeType.ALL, mappedBy = "senderUser", orphanRemoval = true)
     public List<DirectMessage> directMessages;
 
     public User() {

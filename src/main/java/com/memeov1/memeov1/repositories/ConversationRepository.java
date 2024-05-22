@@ -25,6 +25,8 @@ public interface ConversationRepository extends JpaRepository<Conversation, Conv
     // @Query("SELECT c FROM Conversation c JOIN c.users u WHERE u.username LIKE
     // %:username% AND c.conversationPK.receiverUserID = u.userID")
     // List<Conversation> findByReceiverUsernameContains(String username);
+    // no uso este método porque necesito primero coger los ids de los users para
+    // luego dárselo al método de encontrar conversaciones por id de receiverUSer
 
     // borrar conversation por conversationpk
     public String deleteByConversationPKConversationID(Integer conversationID);
