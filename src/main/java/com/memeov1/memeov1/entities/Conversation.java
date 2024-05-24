@@ -43,6 +43,7 @@ public class Conversation {
     public Conversation(ConversationPK conversationPK, List<DirectMessage> directMessages) {
         this.conversationPK = conversationPK;
         this.directMessages = directMessages;
+        this.created_at = new Date();
     }
 
     public Date getCreated_at() {

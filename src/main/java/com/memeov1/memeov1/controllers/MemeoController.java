@@ -79,6 +79,7 @@ public class MemeoController {
 
     // ---------------------- USER
     // ------------------------------------------------------------------------------
+    // incluye create login
     @PostMapping("/createuser")
     public User createUser(@RequestBody User user) {
         return userService.create(user);
@@ -86,7 +87,6 @@ public class MemeoController {
 
     // no necesitamos un getusers
 
-    // incluye create login
     @GetMapping("/getuser/{userID}")
     public User getUser(@PathVariable Integer userID) {
         return userService.read(userID);
@@ -167,7 +167,7 @@ public class MemeoController {
         return memeLikeService.delete(memeLikePK);
     }
 
-    // ---------------------- LOGIN
+    // ---------------------- LOGIN -> METER LOGIN EN CRUD USER
     // ------------------------------------------------------------------------------
     @PostMapping("/createlogin")
     public Login createLogin(@RequestBody Login login) {

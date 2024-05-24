@@ -1,5 +1,6 @@
 package com.memeov1.memeov1.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -53,9 +54,12 @@ public class Post {
     }
 
     public Post(String text_content, String media_type, Blob media_file) {
+        this.createdDatetime = new Date();
         this.text_content = text_content;
         this.media_type = media_type;
         this.media_file = media_file;
+        this.memeLikes = new ArrayList<MemeLike>();
+        this.comments = new ArrayList<Comment>();
     }
 
     public Integer getPostID() {

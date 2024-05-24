@@ -47,8 +47,8 @@ public class DirectMessage {
 
     }
 
-    public DirectMessage(Date sent_datetime, String text_content) {
-        this.sent_datetime = sent_datetime;
+    public DirectMessage(String text_content) {
+        this.sent_datetime = new Date();
         this.text_content = text_content;
     }
 

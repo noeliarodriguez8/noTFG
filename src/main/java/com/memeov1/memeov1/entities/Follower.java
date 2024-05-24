@@ -43,10 +43,10 @@ public class Follower {
 
     }
 
-    public Follower(User fromUser, User toUser, Date started_following) {
+    public Follower(User fromUser, User toUser) {
         this.fromUser = fromUser;
         this.toUser = toUser;
-        this.started_following = started_following;
+        this.started_following = new Date();
     }
 
     public User getFromUser() {

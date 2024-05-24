@@ -70,8 +70,10 @@ public class User {
 
     @ManyToMany(targetEntity = Conversation.class, cascade = CascadeType.ALL)
     @JoinTable(name = "user_conversation", joinColumns = @JoinColumn(name = "userID"), inverseJoinColumns = {
-            @JoinColumn(name = "conversationID"), @JoinColumn(name = "starterUserID"),
-            @JoinColumn(name = "receiverUserID") })
+            @JoinColumn(name = "conversationID"),
+            @JoinColumn(name = "starterUserID"),
+            @JoinColumn(name = "receiverUserID")
+    })
     public List<Conversation> conversations;
 
     @OneToMany(targetEntity = DirectMessage.class, cascade = CascadeType.ALL, mappedBy = "senderUser", orphanRemoval = true)
@@ -81,8 +83,10 @@ public class User {
 
     }
 
-    public User(String username, String name, String surname, String email, Date birth_date, Blob avatar) {
-        this.userID = null;
+    // añado la password al constructor para usarla para construir el login dentro
+    // del constructor de user
+    public User(String username, String name, String surname, String email, Date birth_date, Blob avatar,
+            String password) {
         this.username = username;
         this.name = name;
         this.surname = surname;
@@ -92,6 +96,12 @@ public class User {
         this.avatar = avatar;
         this.followers = new ArrayList<Follower>();
         this.following = new ArrayList<Follower>();
+        this.login = new Login(username, password);
+        this.comments = new ArrayList<Comment>();
+        this.posts = new ArrayList<Post>();
+        this.memeLikes = new ArrayList<MemeLike>();
+        this.conversations = new ArrayList<Conversation>();
+        this.directMessages = new ArrayList<DirectMessage>();
     }
 
     public Integer getUserID() {

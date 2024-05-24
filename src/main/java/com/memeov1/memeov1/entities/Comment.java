@@ -43,10 +43,9 @@ public class Comment {
 
     }
 
-    public Comment(String text_content, Date created_datetime) {
-        this.commentID = null;
+    public Comment(String text_content) {
         this.text_content = text_content;
-        this.created_datetime = created_datetime;
+        this.created_datetime = new Date();
     }
 
     public String getText_content() {
