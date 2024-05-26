@@ -15,7 +15,6 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +42,7 @@ public class User {
     public Date signup_date;
 
     public Date birth_date;
-    public Blob avatar;
+    public String avatar;
 
     // @JsonManagedReference
     @JsonIgnoreProperties({ "fromUser", "toUser" })
@@ -61,6 +60,7 @@ public class User {
     @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     public List<Comment> comments;
 
+    @JsonIgnoreProperties("user")
     @OneToMany(targetEntity = Post.class, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     // hay que poner el mappedby para que pueda borrar los posts al borrar el user
     public List<Post> posts;
@@ -85,7 +85,7 @@ public class User {
 
     // añado la password al constructor para usarla para construir el login dentro
     // del constructor de user
-    public User(String username, String name, String surname, String email, Date birth_date, Blob avatar,
+    public User(String username, String name, String surname, String email, Date birth_date, String avatar,
             String password) {
         this.username = username;
         this.name = name;
@@ -160,11 +160,11 @@ public class User {
         this.birth_date = birth_date;
     }
 
-    public Blob getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(Blob avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 

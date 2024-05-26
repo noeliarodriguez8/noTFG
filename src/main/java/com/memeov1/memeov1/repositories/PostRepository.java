@@ -25,4 +25,8 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     // encontrar post por id
     public Post findByPostID(Integer postID);
 
+    // encontrar último id de las conversations
+    @Query("SELECT MAX(p.postID) FROM Post p")
+    public Integer findLastPostID();
+
 }

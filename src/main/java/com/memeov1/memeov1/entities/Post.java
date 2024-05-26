@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.sql.Blob;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,7 +35,7 @@ public class Post {
     public Date createdDatetime;
 
     public String media_type;
-    public Blob media_file;
+    public String media_file;
 
     @ManyToOne(targetEntity = User.class, optional = false)
     @JoinColumn(name = "userID", nullable = false)
@@ -53,11 +51,20 @@ public class Post {
 
     }
 
-    public Post(String text_content, String media_type, Blob media_file) {
+    public Post(String text_content, String media_file, String media_type) {
         this.createdDatetime = new Date();
         this.text_content = text_content;
         this.media_type = media_type;
         this.media_file = media_file;
+        this.memeLikes = new ArrayList<MemeLike>();
+        this.comments = new ArrayList<Comment>();
+    }
+
+    public Post(Integer postID, String text_content) {
+        this.postID = postID;
+        this.createdDatetime = new Date();
+        this.text_content = text_content;
+        this.media_file = null;
         this.memeLikes = new ArrayList<MemeLike>();
         this.comments = new ArrayList<Comment>();
     }
@@ -78,19 +85,11 @@ public class Post {
         this.text_content = text_content;
     }
 
-    public String getMedia_type() {
-        return media_type;
-    }
-
-    public void setMedia_type(String media_type) {
-        this.media_type = media_type;
-    }
-
-    public Blob getMedia_file() {
+    public String getMedia_file() {
         return media_file;
     }
 
-    public void setMedia_file(Blob media_file) {
+    public void setMedia_file(String media_file) {
         this.media_file = media_file;
     }
 
@@ -124,6 +123,14 @@ public class Post {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public String getMedia_type() {
+        return media_type;
+    }
+
+    public void setMedia_type(String media_type) {
+        this.media_type = media_type;
     }
 
 }

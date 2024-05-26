@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
-@CrossOrigin(origins = "", allowedHeaders = "")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/memeo/api")
 public class MemeoController {
 
@@ -68,12 +68,6 @@ public class MemeoController {
 
     // @GetMapping("/login")
     // public String index(@RequestParam String param) {
-    // return new String();
-    // }
-
-    // listar post (inicio de usuario)
-    // @GetMapping("/feed")
-    // public String getFeed(Integer userID) {
     // return new String();
     // }
 

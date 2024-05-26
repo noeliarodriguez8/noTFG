@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Subir Imagen</title>
+  </head>
+  <body>
+    <form id="form">
+      <input type="file" id="fileInput" />
+      <button type="submit">Enviar</button>
+    </form>
+    <img src="../../../uploads/posts/theking-1.png" />
+
+    <script>
+      document
+        .getElementById("form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault()
+
+          const fileInput = document.getElementById("fileInput")
+          const file = fileInput.files[0]
+          const reader = new FileReader()
+
+          reader.onloadend = function () {
+            const base64String = reader.result
+              .replace("data:", "")
+              .replace(/^.+,/, "")
+
+            const post = {
+              text_content: "estoy intenso últimamente",
+              user: {
+                userID: 1,
+                username: "theking",
+              },
+              media_file: base64String,
+            }
+
+            fetch("http://127.0.0.1:9000/memeo/api/createpost", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "http://127.0.0.1:9000",
+              },
+              body: JSON.stringify(post),
+            })
+              .then((response) => response.json())
+              .then((data) => console.log("Success:", data))
+              .catch((error) => console.error("Error:", error))
+          }
+
+          reader.readAsDataURL(file)
+        })
+    </script>
+  </body>
+</html>

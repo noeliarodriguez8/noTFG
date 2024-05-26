@@ -1,5 +1,9 @@
 package com.memeov1.memeov1.services;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Base64;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,8 +23,22 @@ public class UserService {
         this.loginRepository = loginRepository;
     }
 
+    // en user solo permitimos jpg
     @Transactional
     public User create(User user) {
+
+        String filePath = "";
+
+        try {
+            byte[] imagenBytes = Base64.getDecoder().decode(user.getAvatar());
+            filePath = "uploads/avatars/" + user.getUsername() + "." + "jpg";
+            try (FileOutputStream fos = new FileOutputStream(filePath)) {
+                fos.write(imagenBytes);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        user.setAvatar(filePath);
         return userRepository.saveAndFlush(user);
     }
 
