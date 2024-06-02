@@ -22,7 +22,7 @@ public class Conversation {
     @EmbeddedId
     public ConversationPK conversationPK;
 
-    @ManyToMany(mappedBy = "conversations")
+    @ManyToMany(mappedBy = "conversations", cascade = CascadeType.ALL)
     public List<User> users = new ArrayList<>();
 
     @CreationTimestamp

@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,10 +32,13 @@ public class Comment {
     @Temporal(TemporalType.TIMESTAMP)
     public Date created_datetime;
 
+    @JsonIgnoreProperties(value = { "followers", "following", "comments", "memeLikes", "posts", "conversations",
+            "directMessages" }, allowSetters = true)
     @ManyToOne(targetEntity = User.class, optional = false)
     @JoinColumn(name = "userID", updatable = false, nullable = false)
     public User user;
 
+    @JsonIgnoreProperties(value = { "user", "comments", "memeLikes" }, allowSetters = true)
     @ManyToOne(targetEntity = Post.class, optional = false)
     @JoinColumn(name = "postID", updatable = false, nullable = false)
     // quito insertable=false

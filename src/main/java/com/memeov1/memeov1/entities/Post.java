@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,6 +39,7 @@ public class Post {
     public String media_type;
     public String media_file;
 
+    @JsonIgnoreProperties(value = "posts", allowSetters = true)
     @ManyToOne(targetEntity = User.class, optional = false)
     @JoinColumn(name = "userID", nullable = false)
     public User user;
@@ -44,6 +47,7 @@ public class Post {
     @OneToMany(targetEntity = MemeLike.class, mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<MemeLike> memeLikes;
 
+    @JsonIgnoreProperties(value = "user", allowSetters = true)
     @OneToMany(targetEntity = Comment.class, mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<Comment> comments;
 

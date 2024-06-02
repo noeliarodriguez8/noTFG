@@ -45,22 +45,24 @@ public class User {
     public String avatar;
 
     // @JsonManagedReference
-    @JsonIgnoreProperties({ "fromUser", "toUser" })
+    @JsonIgnoreProperties(value = { "fromUser", "toUser" }, allowSetters = true)
     @OneToMany(targetEntity = Follower.class, cascade = CascadeType.ALL, mappedBy = "toUser", orphanRemoval = true)
     public List<Follower> followers;
 
     // @JsonBackReference
-    @JsonIgnoreProperties({ "fromUser", "toUser" })
+    @JsonIgnoreProperties(value = { "fromUser", "toUser" }, allowSetters = true)
     @OneToMany(targetEntity = Follower.class, cascade = CascadeType.ALL, mappedBy = "fromUser", orphanRemoval = true)
     public List<Follower> following;
 
+    @JsonIgnoreProperties(value = "user", allowSetters = true)
     @OneToOne(targetEntity = Login.class, cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     public Login login;
 
+    @JsonIgnoreProperties(value = "user", allowSetters = true)
     @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     public List<Comment> comments;
 
-    @JsonIgnoreProperties("user")
+    @JsonIgnoreProperties(value = { "user", "comments" }, allowSetters = true)
     @OneToMany(targetEntity = Post.class, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     // hay que poner el mappedby para que pueda borrar los posts al borrar el user
     public List<Post> posts;

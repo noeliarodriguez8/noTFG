@@ -5,12 +5,13 @@ import com.memeov1.memeov1.entities.Comment;
 import com.memeov1.memeov1.entities.Conversation;
 import com.memeov1.memeov1.entities.DirectMessage;
 import com.memeov1.memeov1.entities.Follower;
-import com.memeov1.memeov1.entities.Login;
+//import com.memeov1.memeov1.entities.Login;
 import com.memeov1.memeov1.entities.MemeLike;
 import com.memeov1.memeov1.entities.MemeLikePK;
 import com.memeov1.memeov1.entities.Post;
 import com.memeov1.memeov1.entities.User;
 import com.memeov1.memeov1.requests.MemeLikeRequest;
+import com.memeov1.memeov1.requests.UserRequest;
 import com.memeov1.memeov1.services.CommentService;
 import com.memeov1.memeov1.services.ConversationService;
 import com.memeov1.memeov1.services.DMService;
@@ -75,8 +76,8 @@ public class MemeoController {
     // ------------------------------------------------------------------------------
     // incluye create login
     @PostMapping("/createuser")
-    public User createUser(@RequestBody User user) {
-        return userService.create(user);
+    public User createUser(@RequestBody UserRequest userRequest) {
+        return userService.create(userRequest.getUser(), userRequest.getPassword());
     }
 
     // no necesitamos un getusers
@@ -98,6 +99,49 @@ public class MemeoController {
         return userService.delete(userID);
     }
 
+    // ---------------------- LOGIN -> METER LOGIN EN CRUD USER
+    // ------------------------------------------------------------------------------
+    // @PostMapping("/createlogin")
+    // public Login createLogin(@RequestBody Login login) {
+    // return loginService.create(login);
+    // }
+
+    // no necesitamos un getlogins ni un getlogin
+
+    // @PutMapping("/updatelogin/{loginID}")
+    // public Login updateLogin(@PathVariable Integer loginID, @RequestBody Login
+    // login) {
+    // return loginService.update(loginID, login);
+    // }
+
+    // @DeleteMapping("/deletelogin/{loginID}")
+    // public String deleteLogin(@PathVariable Integer loginID) {
+    // return loginService.delete(loginID);
+    // }
+
+    // ---------------------- POST
+    // --------------------------------------------------------------------------------
+    @PostMapping("/createpost")
+    public Post createPost(@RequestBody Post post) {
+        return postService.create(post);
+    }
+
+    @GetMapping("/getposts/{userID}")
+    public List<Post> getPosts(@PathVariable Integer userID) {
+        return postService.getPostsForCurrentUser(userID);
+    }
+
+    // leer un post no hace falta
+    // lo sacamos directamente del front cuando estemos en la pantalla de un usuario
+    // a través de su lista de posts
+
+    // no necesitamos actualizar post
+
+    @DeleteMapping("/deletepost/{postID}")
+    public String deletePost(@PathVariable Integer postID) {
+        return postService.delete(postID);
+    }
+
     // ---------------------- FOLLOWER
     // ------------------------------------------------------------------------------
     @PostMapping("/createfollower")
@@ -112,31 +156,6 @@ public class MemeoController {
     public String deleteFollower(@PathVariable Integer fromUserID, @PathVariable Integer toUserID) {
 
         return followerService.delete(fromUserID, toUserID);
-    }
-
-    // ---------------------- POST
-    // --------------------------------------------------------------------------------
-    @PostMapping("/createpost")
-    public Post createPost(@RequestBody Post post) {
-        return postService.create(post);
-    }
-
-    @GetMapping("/getposts/{userID}")
-    public List<Post> getPosts(@PathVariable Integer userID) {
-        return postService.getPostsForCurrentUser(userID);
-    }
-
-    // leer un post no sé si lo necesitamos
-    // @GetMapping("/getpost/{postID}")
-    // public Post getPost(@PathVariable Integer postID) {
-    // return postService.read(postID);
-    // }
-
-    // no necesitamos actualizar post
-
-    @DeleteMapping("/deletepost/{postID}")
-    public String deletePost(@PathVariable Integer postID) {
-        return postService.delete(postID);
     }
 
     // ---------------------- MEMELIKE
@@ -161,25 +180,6 @@ public class MemeoController {
         return memeLikeService.delete(memeLikePK);
     }
 
-    // ---------------------- LOGIN -> METER LOGIN EN CRUD USER
-    // ------------------------------------------------------------------------------
-    @PostMapping("/createlogin")
-    public Login createLogin(@RequestBody Login login) {
-        return loginService.create(login);
-    }
-
-    // no necesitamos un getlogins ni un getlogin
-
-    @PutMapping("/updatelogin/{loginID}")
-    public Login updateLogin(@PathVariable Integer loginID, @RequestBody Login login) {
-        return loginService.update(loginID, login);
-    }
-
-    @DeleteMapping("/deletelogin/{loginID}")
-    public String deleteLogin(@PathVariable Integer loginID) {
-        return loginService.delete(loginID);
-    }
-
     // ---------------------- COMMENT
     // --------------------------------------------------------------------------------
     @PostMapping("/createcomment")
@@ -199,27 +199,6 @@ public class MemeoController {
     @DeleteMapping("/deletecomment/{commentID}")
     public String deleteComment(@PathVariable Integer commentID) {
         return commentService.delete(commentID);
-    }
-
-    // ---------------------- DIRECT MESSAGE
-    // --------------------------------------------------------------------------------
-    @PostMapping("/createdm")
-    public DirectMessage createDirectMessage(@RequestBody DirectMessage directMessage) {
-        return dmService.create(directMessage);
-    }
-
-    @GetMapping("/getdms/{conversationID}")
-    public List<DirectMessage> getDMs(@PathVariable Integer conversationID) {
-        return dmService.getDMsFromConversation(conversationID);
-    }
-
-    // no necesitamos leer un dm
-
-    // no necesitamos actualizar dm
-
-    @DeleteMapping("/deletedm/{messageID}")
-    public String deleteDM(@PathVariable Integer messageID) {
-        return dmService.delete(messageID);
     }
 
     // ---------------------- CONVERSATION
@@ -247,6 +226,27 @@ public class MemeoController {
     @DeleteMapping("/deleteconversation/{conversationID}")
     public String deleteConversation(@PathVariable Integer conversationID) {
         return conversationService.delete(conversationID);
+    }
+
+    // ---------------------- DIRECT MESSAGE
+    // --------------------------------------------------------------------------------
+    @PostMapping("/createdm")
+    public DirectMessage createDirectMessage(@RequestBody DirectMessage directMessage) {
+        return dmService.create(directMessage);
+    }
+
+    @GetMapping("/getdms/{conversationID}")
+    public List<DirectMessage> getDMs(@PathVariable Integer conversationID) {
+        return dmService.getDMsFromConversation(conversationID);
+    }
+
+    // no necesitamos leer un dm
+
+    // no necesitamos actualizar dm
+
+    @DeleteMapping("/deletedm/{messageID}")
+    public String deleteDM(@PathVariable Integer messageID) {
+        return dmService.delete(messageID);
     }
 
 }
