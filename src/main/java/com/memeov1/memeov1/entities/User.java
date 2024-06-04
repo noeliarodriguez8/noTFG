@@ -67,6 +67,7 @@ public class User {
     // hay que poner el mappedby para que pueda borrar los posts al borrar el user
     public List<Post> posts;
 
+    @JsonIgnoreProperties(value = "user", allowSetters = true)
     @OneToMany(targetEntity = MemeLike.class, cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     public List<MemeLike> memeLikes;
 

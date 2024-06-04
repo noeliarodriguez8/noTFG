@@ -22,10 +22,10 @@ public class ConversationPK implements Serializable {
 
     }
 
-    public ConversationPK(Integer starterUserID, Integer receiverUserID, Integer conversationID) {
+    public ConversationPK(Integer conversationID, Integer starterUserID, Integer receiverUserID) {
+        this.conversationID = conversationID;
         this.starterUserID = starterUserID;
         this.receiverUserID = receiverUserID;
-        this.conversationID = conversationID;
     }
 
     public Integer getStarterUserID() {

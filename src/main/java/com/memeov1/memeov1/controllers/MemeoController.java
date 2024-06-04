@@ -3,6 +3,7 @@ package com.memeov1.memeov1.controllers;
 import com.memeov1.memeov1.services.PostService;
 import com.memeov1.memeov1.entities.Comment;
 import com.memeov1.memeov1.entities.Conversation;
+import com.memeov1.memeov1.entities.ConversationPK;
 import com.memeov1.memeov1.entities.DirectMessage;
 import com.memeov1.memeov1.entities.Follower;
 //import com.memeov1.memeov1.entities.Login;
@@ -238,9 +239,20 @@ public class MemeoController {
 
     // ---------------------- DIRECT MESSAGE
     // --------------------------------------------------------------------------------
-    @PostMapping("/createdm/{conversationID}")
-    public Conversation createDirectMessage(@PathVariable Integer conversationID,
-            @RequestBody DirectMessage directMessage) {
+    // @PostMapping("/createdm/{conversationID}")
+    // public Conversation createDirectMessage(@PathVariable Integer conversationID,
+    // @RequestBody DirectMessage directMessage) {
+    // dmService.create(directMessage);
+    // Conversation conversation =
+    // conversationService.updateConversation(conversationID, directMessage);
+    // return conversation;
+    // }
+
+    @PostMapping("/createdm/{conversationID}/{starterUserID}/{receiverUserID}")
+    public Conversation createDirectMessage(@PathVariable Integer conversationID, @PathVariable Integer starterUserID,
+            @PathVariable Integer receiverUserID, @RequestBody DirectMessage directMessage) {
+        ConversationPK cpk = new ConversationPK(conversationID, starterUserID, receiverUserID);
+        directMessage.setConversation(new Conversation(cpk));
         dmService.create(directMessage);
         Conversation conversation = conversationService.updateConversation(conversationID, directMessage);
         return conversation;
