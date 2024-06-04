@@ -15,6 +15,9 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "conversation")
 public class Conversation {
@@ -22,6 +25,7 @@ public class Conversation {
     @EmbeddedId
     public ConversationPK conversationPK;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "conversations", cascade = CascadeType.ALL)
     public List<User> users = new ArrayList<>();
 
@@ -29,6 +33,7 @@ public class Conversation {
     @Temporal(TemporalType.TIMESTAMP)
     public Date created_at;
 
+    @JsonIgnoreProperties(value = "conversation", allowSetters = true)
     @OneToMany(targetEntity = DirectMessage.class, mappedBy = "conversation", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<DirectMessage> directMessages;
 
@@ -43,6 +48,12 @@ public class Conversation {
     public Conversation(ConversationPK conversationPK, List<DirectMessage> directMessages) {
         this.conversationPK = conversationPK;
         this.directMessages = directMessages;
+        this.created_at = new Date();
+    }
+
+    public Conversation(ConversationPK conversationPK) {
+        this.conversationPK = conversationPK;
+        this.directMessages = new ArrayList<DirectMessage>();
         this.created_at = new Date();
     }
 

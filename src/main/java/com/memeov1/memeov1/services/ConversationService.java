@@ -31,7 +31,7 @@ public class ConversationService {
                 1 : 1;
         ConversationPK conversationPK = new ConversationPK(conversation.getConversationPK().getStarterUserID(),
                 conversation.getConversationPK().getReceiverUserID(), newConversationID);
-        Conversation c = new Conversation(conversationPK, null);
+        Conversation c = new Conversation(conversationPK);
         return conversationRepository.saveAndFlush(c);
 
         // intento de arreglar la inserción automática de la tabla de relación
@@ -60,7 +60,7 @@ public class ConversationService {
         // return conversationRepository.saveAndFlush(c);
     }
 
-    // encontrar conversaciones por id del username
+    // buscar conversaciones por id del username
     public List<Conversation> findConversationsByReceiverUsername(String username) {
         List<Integer> receiverUserIDs = userRepository.findUserIDsByUsernameContainsIgnoreCase(username);
         if (!receiverUserIDs.isEmpty()) {
@@ -69,10 +69,26 @@ public class ConversationService {
         return List.of(); // devuelve una lista vacía si no se encuentran usuarios
     }
 
+    // listar conversaciones por id de usuario registrado
+    public List<Conversation> findConversationsByRegisteredUser(Integer userID) {
+        return conversationRepository.findConversationsByUserID(userID);
+    }
+
+    // @Transactional
+    // public Conversation updateConversation(Integer conversationID,
+    // List<DirectMessage> dms) {
+    // Conversation conversation = conversationRepository
+    // .findConversationByConversationPKConversationID(conversationID);
+    // conversation.setDirectMessages(dms);
+    // return conversationRepository.saveAndFlush(conversation);
+    // }
+
     @Transactional
-    public Conversation updateConversation(Integer conversationID, List<DirectMessage> dms) {
+    public Conversation updateConversation(Integer conversationID, DirectMessage dm) {
         Conversation conversation = conversationRepository
                 .findConversationByConversationPKConversationID(conversationID);
+        List<DirectMessage> dms = conversation.getDirectMessages();
+        dms.add(dm);
         conversation.setDirectMessages(dms);
         return conversationRepository.saveAndFlush(conversation);
     }
@@ -81,8 +97,9 @@ public class ConversationService {
     public String delete(Integer conversationID) {
         Conversation conversation = conversationRepository
                 .findConversationByConversationPKConversationID(conversationID);
-        User user = userRepository.findByUserID(conversation.getConversationPK().getReceiverUserID());
+        User user1 = userRepository.findByUserID(conversation.getConversationPK().getReceiverUserID());
+        User user2 = userRepository.findByUserID(conversation.getConversationPK().getStarterUserID());
         conversationRepository.deleteByConversationPKConversationID(conversationID);
-        return "Deleted conversation with user " + user.getUsername();
+        return "Deleted conversation of users " + user1.getUsername() + " and " + user2.getUsername();
     }
 }

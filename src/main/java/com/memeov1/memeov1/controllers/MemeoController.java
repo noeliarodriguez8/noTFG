@@ -210,14 +210,22 @@ public class MemeoController {
     }
 
     // al crear un dm se tiene que llamar a este método justo después
-    @PutMapping("/updateconversation/{conversationID}")
-    public Conversation update(@PathVariable Integer conversationID, @RequestBody List<DirectMessage> dms) {
-        return conversationService.updateConversation(conversationID, dms);
-    }
+    // @PutMapping("/updateconversation/{conversationID}")
+    // public Conversation update(@PathVariable Integer conversationID, @RequestBody
+    // List<DirectMessage> dms) {
+    // return conversationService.updateConversation(conversationID, dms);
+    // }
 
-    @GetMapping("/getconversations/{username}")
-    public List<Conversation> getConversations(@PathVariable String username) {
-        return conversationService.findConversationsByReceiverUsername(username);
+    // secundario, solo si tenemos tiempo
+    // @GetMapping("/searchconversations/{username}")
+    // public List<Conversation> searchConversations(@PathVariable String username)
+    // {
+    // return conversationService.findConversationsByReceiverUsername(username);
+    // }
+
+    @GetMapping("/getconversations/{userID}")
+    public List<Conversation> getConversations(@PathVariable Integer userID) {
+        return conversationService.findConversationsByRegisteredUser(userID);
     }
 
     // no hace falta un get conversation porque al darle a una conversation concreta
@@ -230,9 +238,12 @@ public class MemeoController {
 
     // ---------------------- DIRECT MESSAGE
     // --------------------------------------------------------------------------------
-    @PostMapping("/createdm")
-    public DirectMessage createDirectMessage(@RequestBody DirectMessage directMessage) {
-        return dmService.create(directMessage);
+    @PostMapping("/createdm/{conversationID}")
+    public Conversation createDirectMessage(@PathVariable Integer conversationID,
+            @RequestBody DirectMessage directMessage) {
+        dmService.create(directMessage);
+        Conversation conversation = conversationService.updateConversation(conversationID, directMessage);
+        return conversation;
     }
 
     @GetMapping("/getdms/{conversationID}")

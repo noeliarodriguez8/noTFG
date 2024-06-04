@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +27,7 @@ public class DirectMessage {
     @Column(name = "messageID", nullable = false)
     public Integer messageID;
 
+    @JsonIgnoreProperties(value = "directMessages", allowSetters = true)
     @ManyToOne(targetEntity = Conversation.class, optional = false)
     @JoinColumns({
             @JoinColumn(name = "conversationID", referencedColumnName = "conversationID", nullable = false),
@@ -33,6 +36,9 @@ public class DirectMessage {
     })
     public Conversation conversation;
 
+    @JsonIgnoreProperties(value = { "name", "surname", "email", "login", "avatar", "signup_date", "birth_date",
+            "followers", "following", "comments", "memeLikes", "posts", "conversations",
+            "directMessages" }, allowSetters = true)
     @ManyToOne(targetEntity = User.class, optional = false)
     @JoinColumn(name = "userID", nullable = false)
     public User senderUser;
