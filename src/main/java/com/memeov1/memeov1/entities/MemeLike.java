@@ -18,14 +18,15 @@ public class MemeLike {
     @EmbeddedId
     public MemeLikePK memeLikePK;
 
-    @JsonIgnoreProperties(value = { "user", "memeLikes", "comments" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "comments", "memeLikes" }, allowSetters = true)
     @ManyToOne(targetEntity = Post.class, optional = false)
     @JoinColumn(name = "postID", insertable = false, updatable = false, nullable = false)
     public Post post;
     // public @Id Integer postID;
 
     @JsonIgnoreProperties(value = { "followers", "following", "comments", "memeLikes", "posts", "conversations",
-            "directMessages" }, allowSetters = true)
+            "directMessages", "name", "surname", "email", "signup_date", "birth_date", "login",
+            "avatar" }, allowSetters = true)
     @ManyToOne(targetEntity = User.class, optional = false)
     @JoinColumn(name = "userID", insertable = false, updatable = false, nullable = false)
     public User user;

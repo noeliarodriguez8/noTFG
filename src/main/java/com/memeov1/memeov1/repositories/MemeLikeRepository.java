@@ -15,7 +15,7 @@ public interface MemeLikeRepository extends JpaRepository<MemeLike, MemeLikePK> 
     // contar likes
 
     // encontrar memelike por memelikepk
-    // public MemeLike findMemeLikeByMemeLikePK(MemeLikePK memeLikePK);
+    public MemeLike findMemeLikeByMemeLikePK(MemeLikePK memeLikePK);
 
     // borrar memelike por memelikepk
     public String deleteByMemeLikePK(MemeLikePK memeLikePK);

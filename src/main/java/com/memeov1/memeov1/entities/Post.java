@@ -39,15 +39,25 @@ public class Post {
     public String media_type;
     public String media_file;
 
-    @JsonIgnoreProperties(value = "posts", allowSetters = true)
+    // @JsonIgnoreProperties(value = "posts", allowSetters = true)
+    @JsonIgnoreProperties(value = { "posts", "following", "followers", "memeLikes", "comments", "conversations",
+            "directMessages", "surname", "name",
+            "email", "signup_date", "birth_date", "avatar", "login" }, allowSetters = true)
     @ManyToOne(targetEntity = User.class, optional = false)
     @JoinColumn(name = "userID", nullable = false)
     public User user;
 
+    @JsonIgnoreProperties(value = { "posts", "following", "followers", "memeLikes", "comments", "conversations",
+            "directMessages", "surname", "name", "email", "signup_date", "birth_date", "avatar",
+            "login" }, allowSetters = true)
     @OneToMany(targetEntity = MemeLike.class, mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<MemeLike> memeLikes;
 
-    @JsonIgnoreProperties(value = "user", allowSetters = true)
+    @JsonIgnoreProperties(value = { "user.posts", "user.following",
+            "user.followers", "user.memeLikes", "user.comments",
+            "user.surname", "user.name", "user.email", "user.signup_date",
+            "user.birth_date", "user.avatar",
+            "user.login" }, allowSetters = true)
     @OneToMany(targetEntity = Comment.class, mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<Comment> comments;
 

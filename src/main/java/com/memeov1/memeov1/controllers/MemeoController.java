@@ -171,6 +171,8 @@ public class MemeoController {
         return memeLikeService.create(memeLike);
     }
 
+    // crear método para buscar si un post tiene el memelike del usuario registrado
+
     // no necesitamos un getmemelikes
 
     // no necesitamos un updatememelike porque o se crea o se borra
