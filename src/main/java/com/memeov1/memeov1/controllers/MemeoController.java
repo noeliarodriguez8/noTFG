@@ -6,7 +6,6 @@ import com.memeov1.memeov1.entities.Conversation;
 import com.memeov1.memeov1.entities.ConversationPK;
 import com.memeov1.memeov1.entities.DirectMessage;
 import com.memeov1.memeov1.entities.Follower;
-//import com.memeov1.memeov1.entities.Login;
 import com.memeov1.memeov1.entities.MemeLike;
 import com.memeov1.memeov1.entities.MemeLikePK;
 import com.memeov1.memeov1.entities.Post;
@@ -60,18 +59,6 @@ public class MemeoController {
         this.dmService = dmService;
         this.followerService = followerService;
     }
-
-    // login y signin ??????
-    // @PostMapping("/signin")
-    // public String signin(@RequestParam String param) {
-    // return new String();
-    // // retornar vista
-    // }
-
-    // @GetMapping("/login")
-    // public String index(@RequestParam String param) {
-    // return new String();
-    // }
 
     // ---------------------- USER
     // ------------------------------------------------------------------------------

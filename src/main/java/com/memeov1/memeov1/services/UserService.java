@@ -8,6 +8,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.Base64;
 import java.util.regex.Pattern;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,12 +23,15 @@ public class UserService {
     public final UserRepository userRepository;
     public final LoginRepository loginRepository;
     public final LoginService loginService;
-    private static final Pattern BASE64_PATTERN = Pattern.compile("^[a-zA-Z0-9+/]*={0,2}$");
+    public static final Pattern BASE64_PATTERN = Pattern.compile("^[a-zA-Z0-9+/]*={0,2}$");
+    public final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, LoginRepository loginRepository, LoginService loginService) {
+    public UserService(UserRepository userRepository, LoginRepository loginRepository, LoginService loginService,
+            PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.loginRepository = loginRepository;
         this.loginService = loginService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     // en user solo permitimos jpg
@@ -55,7 +59,7 @@ public class UserService {
 
         User createdUser = userRepository.saveAndFlush(user);
 
-        Login login = new Login(createdUser.getUsername(), password);
+        Login login = new Login(createdUser.getUsername(), passwordEncoder.encode(password));
         login.setUser(createdUser);
         loginService.create(login);
 

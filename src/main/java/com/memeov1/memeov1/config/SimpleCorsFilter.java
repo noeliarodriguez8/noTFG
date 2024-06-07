@@ -1,4 +1,4 @@
-package com.memeov1.memeov1;
+package com.memeov1.memeov1.config;
 
 import org.springframework.stereotype.Component;
 
