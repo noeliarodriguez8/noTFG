@@ -24,9 +24,9 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/memeo/api/**"))
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/memeo/api/**", "/uploads/**"))
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/memeo/api/**") // .requestMatchers("/**").permitAll()
-                        .permitAll().anyRequest().authenticated())
+                        .permitAll().requestMatchers("/uploads/**").permitAll().anyRequest().authenticated())
                 .userDetailsService(jpaUserDetailsService)
                 /*
                  * .headers(headers -> headers.frameOptions(frameOptions ->

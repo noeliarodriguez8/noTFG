@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -44,20 +45,20 @@ public class User {
     public Date birth_date;
     public String avatar;
 
-    // @JsonManagedReference
     @JsonIgnoreProperties(value = { "fromUser", "toUser" }, allowSetters = true)
     @OneToMany(targetEntity = Follower.class, cascade = CascadeType.ALL, mappedBy = "toUser", orphanRemoval = true)
     public List<Follower> followers;
 
-    // @JsonBackReference
     @JsonIgnoreProperties(value = { "fromUser", "toUser" }, allowSetters = true)
     @OneToMany(targetEntity = Follower.class, cascade = CascadeType.ALL, mappedBy = "fromUser", orphanRemoval = true)
     public List<Follower> following;
 
+    @JsonIgnore
     @JsonIgnoreProperties(value = "user", allowSetters = true)
     @OneToOne(targetEntity = Login.class, cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     public Login login;
 
+    @JsonIgnore
     @JsonIgnoreProperties(value = "user", allowSetters = true)
     @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     public List<Comment> comments;
@@ -67,10 +68,12 @@ public class User {
     // hay que poner el mappedby para que pueda borrar los posts al borrar el user
     public List<Post> posts;
 
+    @JsonIgnore
     @JsonIgnoreProperties(value = "user", allowSetters = true)
     @OneToMany(targetEntity = MemeLike.class, cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     public List<MemeLike> memeLikes;
 
+    @JsonIgnore
     @ManyToMany(targetEntity = Conversation.class, cascade = CascadeType.ALL)
     @JoinTable(name = "user_conversation", joinColumns = @JoinColumn(name = "userID"), inverseJoinColumns = {
             @JoinColumn(name = "conversationID"),
@@ -79,6 +82,7 @@ public class User {
     })
     public List<Conversation> conversations;
 
+    @JsonIgnore
     @OneToMany(targetEntity = DirectMessage.class, cascade = CascadeType.ALL, mappedBy = "senderUser", orphanRemoval = true)
     public List<DirectMessage> directMessages;
 
