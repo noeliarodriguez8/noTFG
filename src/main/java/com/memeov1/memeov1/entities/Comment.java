@@ -4,7 +4,6 @@ import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -40,7 +39,6 @@ public class Comment {
     @JoinColumn(name = "userID", updatable = false, nullable = false)
     public User user;
 
-    @JsonIgnore
     @JsonIgnoreProperties(value = { "user", "comments", "memeLikes" }, allowSetters = true)
     @ManyToOne(targetEntity = Post.class, optional = false)
     @JoinColumn(name = "postID", updatable = false, nullable = false)

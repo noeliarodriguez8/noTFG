@@ -25,8 +25,9 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/memeo/api/**", "/uploads/**"))
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/memeo/api/**") // .requestMatchers("/**").permitAll()
-                        .permitAll().requestMatchers("/uploads/**").permitAll().anyRequest().authenticated())
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/memeo/api/**")
+                        .permitAll().requestMatchers("/uploads/**").permitAll()
+                        .anyRequest().authenticated())
                 .userDetailsService(jpaUserDetailsService)
                 /*
                  * .headers(headers -> headers.frameOptions(frameOptions ->
