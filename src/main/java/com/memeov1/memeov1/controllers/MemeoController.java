@@ -93,15 +93,12 @@ public class MemeoController {
     // public Login createLogin(@RequestBody Login login) {
     // return loginService.create(login);
     // }
-
     // no necesitamos un getlogins ni un getlogin
-
     // @PutMapping("/updatelogin/{loginID}")
     // public Login updateLogin(@PathVariable Integer loginID, @RequestBody Login
     // login) {
     // return loginService.update(loginID, login);
     // }
-
     // @DeleteMapping("/deletelogin/{loginID}")
     // public String deleteLogin(@PathVariable Integer loginID) {
     // return loginService.delete(loginID);
@@ -228,6 +225,7 @@ public class MemeoController {
 
     // ---------------------- DIRECT MESSAGE
     // --------------------------------------------------------------------------------
+
     // @PostMapping("/createdm/{conversationID}")
     // public Conversation createDirectMessage(@PathVariable Integer conversationID,
     // @RequestBody DirectMessage directMessage) {
