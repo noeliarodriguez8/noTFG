@@ -44,7 +44,7 @@ public class UserService {
 
             try {
                 byte[] imagenBytes = Base64.getDecoder().decode(user.getAvatar());
-                filePath = "uploads/avatars/" + user.getUsername() + "." + "jpg";
+                filePath = "uploads/avatars/" + user.getUsername() + ".jpg";
                 try (FileOutputStream fos = new FileOutputStream(filePath)) {
                     fos.write(imagenBytes);
                 }
@@ -169,6 +169,17 @@ public class UserService {
         User user = userRepository.findByUserID(userID);
         userRepository.deleteById(userID);
         return "Deleted user: " + user.getUsername();
+    }
+
+    @Transactional
+    public User findByLogin(Login l) {
+        Login login = loginRepository.findByUsername(l.getUsername());
+        if (login != null && passwordEncoder.matches(l.getPassword(), login.getPassword())) {
+            User user = userRepository.findByUserID(login.getUser().getUserID());
+            return user;
+        } else {
+            return new User();
+        }
     }
 
     // función para verificar si una cadena es base64 válida

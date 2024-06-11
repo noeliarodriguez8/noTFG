@@ -6,6 +6,7 @@ import com.memeov1.memeov1.entities.Conversation;
 import com.memeov1.memeov1.entities.ConversationPK;
 import com.memeov1.memeov1.entities.DirectMessage;
 import com.memeov1.memeov1.entities.Follower;
+import com.memeov1.memeov1.entities.Login;
 import com.memeov1.memeov1.entities.MemeLike;
 import com.memeov1.memeov1.entities.MemeLikePK;
 import com.memeov1.memeov1.entities.Post;
@@ -58,6 +59,11 @@ public class MemeoController {
         this.commentService = commentService;
         this.dmService = dmService;
         this.followerService = followerService;
+    }
+
+    @PostMapping("/hola")
+    public User login(@RequestBody Login login) {
+        return userService.findByLogin(login);
     }
 
     // ---------------------- USER
