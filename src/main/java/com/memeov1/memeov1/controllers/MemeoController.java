@@ -87,6 +87,11 @@ public class MemeoController {
 
     // no necesitamos un getusers
 
+    @GetMapping("/searchusers/{username}")
+    public List<User> searchUsers(@PathVariable String username) {
+        return userService.searchUsersByUsername(username);
+    }
+
     @GetMapping("/getuser/{userID}")
     public User getUser(@PathVariable Integer userID) {
         return userService.read(userID);

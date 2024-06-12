@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Base64;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -186,6 +187,11 @@ public class UserService {
     public User findExistingUser(User u) {
         User user = userRepository.findByUsernameOrEmail(u.getUsername(), u.getEmail());
         return user;
+    }
+
+    @Transactional
+    public List<User> searchUsersByUsername(String username) {
+        return userRepository.findTop10ByUsernameContainsIgnoreCase(username);
     }
 
     // función para verificar si una cadena es base64 válida
