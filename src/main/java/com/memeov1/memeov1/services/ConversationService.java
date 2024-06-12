@@ -29,8 +29,9 @@ public class ConversationService {
         // si lo encuentra le suma 1, si no lo encuentra le asigna 1
         Integer newConversationID = lastConversationID != null ? lastConversationID +
                 1 : 1;
-        ConversationPK conversationPK = new ConversationPK(conversation.getConversationPK().getStarterUserID(),
-                conversation.getConversationPK().getReceiverUserID(), newConversationID);
+        ConversationPK conversationPK = new ConversationPK(newConversationID,
+                conversation.getConversationPK().getStarterUserID(),
+                conversation.getConversationPK().getReceiverUserID());
         Conversation c = new Conversation(conversationPK);
         return conversationRepository.saveAndFlush(c);
 
