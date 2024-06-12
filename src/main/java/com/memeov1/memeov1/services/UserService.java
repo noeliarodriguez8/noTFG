@@ -182,6 +182,12 @@ public class UserService {
         }
     }
 
+    @Transactional
+    public User findExistingUser(User u) {
+        User user = userRepository.findByUsernameOrEmail(u.getUsername(), u.getEmail());
+        return user;
+    }
+
     // función para verificar si una cadena es base64 válida
     public static boolean isValidBase64(String str) {
         return BASE64_PATTERN.matcher(str).matches();

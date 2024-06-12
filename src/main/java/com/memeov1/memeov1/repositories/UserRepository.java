@@ -18,6 +18,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     // buscar users
     public List<User> findByUsernameContainsIgnoreCase(String username);
 
+    // buscar user por username o email
+    public User findByUsernameOrEmail(String username, String email);
+
     // buscar ids de user por username que coincida
     // necesito poner una query porque el método por convención de nombres de jpa no
     // accede bien a la propiedad userID

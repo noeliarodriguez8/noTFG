@@ -61,18 +61,29 @@ public class MemeoController {
         this.followerService = followerService;
     }
 
-    @PostMapping("/hola")
+    @PostMapping("/login")
     public User login(@RequestBody Login login) {
         return userService.findByLogin(login);
     }
 
+    // incluye create login
+    @PostMapping("/signin")
+    public User signin(@RequestBody UserRequest userRequest) {
+        User user = userService.findExistingUser(userRequest.getUser());
+        if (user == null) {
+            return userService.create(userRequest.getUser(), userRequest.getPassword());
+        } else {
+            return new User();
+        }
+    }
+
     // ---------------------- USER
     // ------------------------------------------------------------------------------
-    // incluye create login
-    @PostMapping("/createuser")
-    public User createUser(@RequestBody UserRequest userRequest) {
-        return userService.create(userRequest.getUser(), userRequest.getPassword());
-    }
+    // lo sustituyo por el método en /memeo/api/signin
+    // @PostMapping("/createuser")
+    // public User createUser(@RequestBody UserRequest userRequest) {
+    // return userService.create(userRequest.getUser(), userRequest.getPassword());
+    // }
 
     // no necesitamos un getusers
 
