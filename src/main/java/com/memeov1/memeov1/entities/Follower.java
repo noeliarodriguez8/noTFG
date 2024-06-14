@@ -16,8 +16,13 @@ import java.util.Objects;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "follower")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "followerID")
 public class Follower {
 
     @Id
@@ -28,11 +33,13 @@ public class Follower {
     // @JsonBackReference
     @ManyToOne(targetEntity = User.class, optional = false)
     @JoinColumn(name = "fromUser", nullable = false)
+    @JsonIdentityReference(alwaysAsId = true)
     public User fromUser;
 
     // @JsonManagedReference
     @ManyToOne(targetEntity = User.class, optional = false)
     @JoinColumn(name = "toUser", nullable = false)
+    @JsonIdentityReference(alwaysAsId = true)
     public User toUser;
 
     @CreationTimestamp
