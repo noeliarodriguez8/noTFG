@@ -21,14 +21,14 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "user")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userID")
+// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+// property = "userID")
 public class User {
 
     @Id
@@ -48,10 +48,12 @@ public class User {
     public Date birth_date;
     public String avatar;
 
+    @JsonManagedReference
     @JsonIgnoreProperties(value = { "fromUser", "toUser" }, allowSetters = true, allowGetters = true)
     @OneToMany(targetEntity = Follower.class, cascade = CascadeType.ALL, mappedBy = "toUser", orphanRemoval = true)
     public List<Follower> followers;
 
+    @JsonManagedReference
     @JsonIgnoreProperties(value = { "fromUser", "toUser" }, allowSetters = true, allowGetters = true)
     @OneToMany(targetEntity = Follower.class, cascade = CascadeType.ALL, mappedBy = "fromUser", orphanRemoval = true)
     public List<Follower> following;

@@ -18,6 +18,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -30,14 +31,16 @@ public class Follower {
     @Column(name = "followerID", nullable = false)
     public Integer followerID;
 
-    // @JsonBackReference
     @ManyToOne(targetEntity = User.class, optional = false)
+    @JsonIgnoreProperties(value = { "followers", "following", "posts", "name", "surname", "email", "signup_date",
+            "birth_date", "login" }, allowSetters = true)
     @JoinColumn(name = "fromUser", nullable = false)
     @JsonIdentityReference(alwaysAsId = true)
     public User fromUser;
 
-    // @JsonManagedReference
     @ManyToOne(targetEntity = User.class, optional = false)
+    @JsonIgnoreProperties(value = { "followers", "following", "posts", "name", "surname", "email", "signup_date",
+            "birth_date", "login" }, allowSetters = true)
     @JoinColumn(name = "toUser", nullable = false)
     @JsonIdentityReference(alwaysAsId = true)
     public User toUser;
