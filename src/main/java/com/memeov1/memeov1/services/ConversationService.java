@@ -75,6 +75,11 @@ public class ConversationService {
         return conversationRepository.findConversationsByUserID(userID);
     }
 
+    // encontrar conversación por conversationID
+    public Conversation findConversationByConversationID(Integer conversationID) {
+        return conversationRepository.findConversationByConversationPKConversationID(conversationID);
+    }
+
     // @Transactional
     // public Conversation updateConversation(Integer conversationID,
     // List<DirectMessage> dms) {
