@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-//import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -22,7 +21,6 @@ public class MemeLike {
     @ManyToOne(targetEntity = Post.class, optional = false)
     @JoinColumn(name = "postID", insertable = false, updatable = false, nullable = false)
     public Post post;
-    // public @Id Integer postID;
 
     @JsonIgnoreProperties(value = { "followers", "following", "comments", "memeLikes", "posts", "conversations",
             "directMessages", "name", "surname", "email", "signup_date", "birth_date", "login",
@@ -30,7 +28,6 @@ public class MemeLike {
     @ManyToOne(targetEntity = User.class, optional = false)
     @JoinColumn(name = "userID", insertable = false, updatable = false, nullable = false)
     public User user;
-    // public @Id Integer userID;
 
     public MemeLike() {
 

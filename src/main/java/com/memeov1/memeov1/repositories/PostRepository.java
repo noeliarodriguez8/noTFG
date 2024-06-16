@@ -18,10 +18,6 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     @Query("SELECT p FROM Post p WHERE p.user IN (:following) ORDER BY p.createdDatetime DESC")
     List<Post> findPostsByFollowingOrderByCreatedDatetimeDesc(@Param("following") List<User> following);
 
-    // recuento posts (solo perfil) (en código)
-
-    // recuento likes (en código)
-
     // encontrar post por id
     public Post findByPostID(Integer postID);
 

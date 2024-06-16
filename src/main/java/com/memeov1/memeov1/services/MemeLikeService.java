@@ -22,12 +22,6 @@ public class MemeLikeService {
     }
 
     @Transactional
-    // para asegurarse de que las operaciones de base de datos que se realizan
-    // dentro de ese método se ejecuten dentro de una transacción adecuada
-    // conjunto de operaciones que se realizan como una unidad atómica e
-    // indivisible. Esto significa que o bien todas las operaciones dentro de la
-    // transacción se completan con éxito, o ninguna de ellas tiene efecto en la
-    // base de datos
     public String delete(MemeLikePK memeLikePK) {
         // MemeLike memeLike = memeLikeRepository.findMemeLikeByMemeLikePK(memeLikePK);
         memeLikeRepository.deleteByMemeLikePK(memeLikePK);

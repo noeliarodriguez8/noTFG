@@ -34,31 +34,6 @@ public class ConversationService {
                 conversation.getConversationPK().getReceiverUserID());
         Conversation c = new Conversation(conversationPK);
         return conversationRepository.saveAndFlush(c);
-
-        // intento de arreglar la inserción automática de la tabla de relación
-        // user_conversations
-        // User starterUser =
-        // userRepository.findByUserID(conversation.getConversationPK().getStarterUserID());
-        // User receiverUser =
-        // userRepository.findByUserID(conversation.getConversationPK().getReceiverUserID());
-
-        // Integer lastConversationID = conversationRepository.findLastConversationID();
-        // // si lo encuentra le suma 1, si no lo encuentra le asigna 1
-        // Integer newConversationID = lastConversationID != null ? lastConversationID +
-        // 1 : 1;
-
-        // ConversationPK conversationPK = new
-        // ConversationPK(conversation.getConversationPK().getStarterUserID(),
-        // conversation.getConversationPK().getReceiverUserID(), newConversationID);
-        // Conversation c = new Conversation(conversationPK, null);
-
-        // conversation.getUsers().add(starterUser);
-        // conversation.getUsers().add(receiverUser);
-
-        // starterUser.getConversations().add(c);
-        // receiverUser.getConversations().add(c);
-
-        // return conversationRepository.saveAndFlush(c);
     }
 
     // buscar conversaciones por id del username
@@ -79,15 +54,6 @@ public class ConversationService {
     public Conversation findConversationByConversationID(Integer conversationID) {
         return conversationRepository.findConversationByConversationPKConversationID(conversationID);
     }
-
-    // @Transactional
-    // public Conversation updateConversation(Integer conversationID,
-    // List<DirectMessage> dms) {
-    // Conversation conversation = conversationRepository
-    // .findConversationByConversationPKConversationID(conversationID);
-    // conversation.setDirectMessages(dms);
-    // return conversationRepository.saveAndFlush(conversation);
-    // }
 
     @Transactional
     public Conversation updateConversation(Integer conversationID, DirectMessage dm) {

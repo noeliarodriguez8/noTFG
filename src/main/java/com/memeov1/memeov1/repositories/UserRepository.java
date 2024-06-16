@@ -11,8 +11,6 @@ import com.memeov1.memeov1.entities.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
     // getuser
-    // no he usado el de por defecto porque daba error de Optional<User>
-    // por la relación no especificada entre el service y el repositorio
     public User findByUserID(Integer userID);
 
     // buscar users
@@ -22,11 +20,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     public User findByUsernameOrEmail(String username, String email);
 
     // buscar ids de user por username que coincida
-    // necesito poner una query porque el método por convención de nombres de jpa no
-    // accede bien a la propiedad userID
-    // por lo que en el getconversations/username no devuelve bien los datos y da
-    // error 500 porque no coincide el tipo de dato que espera con el que le
-    // devuelven
     @Query("SELECT u.userID FROM User u WHERE LOWER(u.username) LIKE LOWER(CONCAT('%', :username, '%'))")
     public List<Integer> findUserIDsByUsernameContainsIgnoreCase(@Param("username") String username);
 
@@ -37,6 +30,4 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     // listar seguidos
     @Query("SELECT f.toUser FROM Follower f WHERE f.fromUser.userID = :userID")
     public List<User> findFollowingByUserID(@Param("userID") Integer userID);
-
-    // recuento seguidos/seguidores -> en código
 }

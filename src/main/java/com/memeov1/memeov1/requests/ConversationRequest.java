@@ -5,8 +5,6 @@ import java.util.List;
 import com.memeov1.memeov1.entities.DirectMessage;
 import com.memeov1.memeov1.entities.User;
 
-//captura de explicación en discord
-//no se usa de momento
 public class ConversationRequest {
 
     public Integer starterUserID;

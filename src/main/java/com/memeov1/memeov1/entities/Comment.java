@@ -42,7 +42,6 @@ public class Comment {
     @JsonIgnoreProperties(value = { "user", "comments", "memeLikes" }, allowSetters = true)
     @ManyToOne(targetEntity = Post.class, optional = false)
     @JoinColumn(name = "postID", updatable = false, nullable = false)
-    // quito insertable=false
     public Post post;
 
     public Comment() {

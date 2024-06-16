@@ -35,14 +35,12 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    // en user solo permitimos jpg
     @Transactional
     public User create(User user, String password) {
 
         String filePath = "";
 
         if (user.getAvatar() != null) {
-
             try {
                 byte[] imagenBytes = Base64.getDecoder().decode(user.getAvatar());
                 filePath = "uploads/avatars/" + user.getUsername() + ".jpg";
@@ -155,7 +153,6 @@ public class UserService {
 
                 }
             }
-            // existingUser = updatedUser;
             existingUser.setAvatar(updatedUser.getAvatar());
             return userRepository.saveAndFlush(existingUser);
         } else {

@@ -14,6 +14,4 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
     // encontrar comentario por ID
     public Comment findByCommentID(Integer commentID);
 
-    // recuento comentarios (en código)
-
 }

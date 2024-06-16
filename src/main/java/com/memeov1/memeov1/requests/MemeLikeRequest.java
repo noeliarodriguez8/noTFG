@@ -3,7 +3,6 @@ package com.memeov1.memeov1.requests;
 import com.memeov1.memeov1.entities.Post;
 import com.memeov1.memeov1.entities.User;
 
-//captura de la explicación en discord
 public class MemeLikeRequest {
 
     public Post post;

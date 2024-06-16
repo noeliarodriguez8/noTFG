@@ -26,8 +26,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "user")
-// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-// property = "userID")
 public class User {
 
     @Id
@@ -67,7 +65,6 @@ public class User {
 
     @JsonIgnoreProperties(value = "user", allowSetters = true)
     @OneToMany(targetEntity = Post.class, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    // hay que poner el mappedby para que pueda borrar los posts al borrar el user
     public List<Post> posts;
 
     @JsonIgnore
@@ -92,8 +89,6 @@ public class User {
 
     }
 
-    // añado la password al constructor para usarla para construir el login dentro
-    // del constructor de user
     public User(String username, String name, String surname, String email, Date birth_date, String avatar,
             String password) {
         this.username = username;

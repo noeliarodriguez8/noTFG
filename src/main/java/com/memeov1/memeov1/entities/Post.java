@@ -39,7 +39,6 @@ public class Post {
     public String media_type;
     public String media_file;
 
-    // @JsonIgnoreProperties(value = "posts", allowSetters = true)
     @JsonIgnoreProperties(value = { "posts", "following", "followers", "memeLikes", "comments", "conversations",
             "directMessages", "surname", "name",
             "email", "signup_date", "birth_date", "avatar", "login" }, allowSetters = true)

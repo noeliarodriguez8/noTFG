@@ -28,10 +28,7 @@ public class DirectMessage {
     @Column(name = "messageID", nullable = false)
     public Integer messageID;
 
-    // esto para que no me liste conversation al hacer get dms from conversation
-    // cambiando el create dm con una nueva conversationpk
     @JsonIgnore
-    // @JsonIgnoreProperties(value = "directMessages", allowSetters = true)
     @ManyToOne(targetEntity = Conversation.class, optional = false)
     @JoinColumns({
             @JoinColumn(name = "conversationID", referencedColumnName = "conversationID", nullable = false),

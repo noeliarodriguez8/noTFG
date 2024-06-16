@@ -12,8 +12,6 @@ public interface MemeLikeRepository extends JpaRepository<MemeLike, MemeLikePK> 
     // listar likes (no se verá en la app)
     public List<MemeLike> findMemeLikesByPostPostID(Integer postID);
 
-    // contar likes
-
     // encontrar memelike por memelikepk
     public MemeLike findMemeLikeByMemeLikePK(MemeLikePK memeLikePK);
 

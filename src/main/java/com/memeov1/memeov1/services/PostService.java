@@ -27,7 +27,6 @@ public class PostService {
         this.userRepository = userRepository;
     }
 
-    // SUSTITUIR EL "jpg" por post.getMedia_type()
     @Transactional
     public Post create(Post post) {
 
@@ -68,11 +67,6 @@ public class PostService {
         }
         return postRepository.findPostsByFollowingOrderByCreatedDatetimeDesc(toUserList);
     }
-
-    // no sé si lo necesitamos
-    // public Post read(Integer postID) {
-    // return postRepository.findByPostID(postID);
-    // }
 
     @Transactional
     public String delete(Integer postID) {
